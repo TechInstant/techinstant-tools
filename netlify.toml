@@ -1,0 +1,12 @@
+# Netlify build settings, kept in the repo so the site can't drift to a wrong
+# preset in the dashboard. @netlify/plugin-nextjs is installed automatically by
+# Netlify when it detects Next.js and handles routing and the publish directory.
+[build]
+  command = "npm run build"
+
+[build.environment]
+  # Next 16 requires Node 20.9+; pin it so the build never picks an older default.
+  NODE_VERSION = "22"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

@@ -1,26 +1,104 @@
 @import "tailwindcss";
 
+/* Theme is driven by a class on <html>, set before first paint by the inline
+   script in layout.tsx, so the page never flashes the wrong theme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
+  /* Light theme: white/neutral-gray surfaces, deep navy text, green accent. */
   --background: #ffffff;
-  --foreground: #171717;
+  --background-subtle: #f6f8fa;
+  --foreground: #0b1220;
+  --card: #ffffff;
+  --card-foreground: #0b1220;
+  --muted: #f1f4f8;
+  --muted-foreground: #5a6779;
+  --border: #e3e8ef;
+  --input: #e3e8ef;
+  --ring: #0f9d58;
+
+  /* The brand green is bright enough for dark surfaces but only reaches ~1.8:1
+     on white, so light mode uses a deeper green for anything that is text. */
+  --brand: #0f9d58;
+  --brand-strong: #0a7c45;
+  --brand-solid: #05df72;
+  --brand-solid-foreground: #052e1b;
+}
+
+.dark {
+  /* Dark theme: deep navy ground, dark gray cards — not an inversion. */
+  --background: #070b14;
+  --background-subtle: #0b111e;
+  --foreground: #f5f7fa;
+  --card: #0e1524;
+  --card-foreground: #f5f7fa;
+  --muted: #161f31;
+  --muted-foreground: #93a1b5;
+  --border: #1d283c;
+  --input: #1d283c;
+  --ring: #05df72;
+
+  --brand: #05df72;
+  --brand-strong: #34e88d;
+  --brand-solid: #05df72;
+  --brand-solid-foreground: #052e1b;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-subtle: var(--background-subtle);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-solid: var(--brand-solid);
+  --color-brand-solid-foreground: var(--brand-solid-foreground);
+
+  --font-sans: var(--font-sans);
+  --radius-card: 0.75rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Visible keyboard focus everywhere, without showing rings on mouse clicks. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* iOS Safari zooms the page when a focused control is under 16px and never
+   zooms back out. Keep every real control at 16px on phones. */
+@media (max-width: 639px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

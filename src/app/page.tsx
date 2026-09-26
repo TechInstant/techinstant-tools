@@ -1,69 +1,138 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Check, LayoutGrid } from "lucide-react";
+import { HeroSearch } from "@/components/home/hero-search";
+import { ToolCard } from "@/components/tools/tool-card";
+import { CategoryCard } from "@/components/tools/category-card";
+import { CATEGORIES } from "@/lib/categories";
+import { TOOLS, popularTools, newTools } from "@/lib/tools";
+import { TRUST_POINTS } from "@/lib/site";
+import { buttonVariants } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
-export default function Home() {
+export default function HomePage() {
+  const popular = popularTools().slice(0, 8);
+  const recent = newTools().slice(0, 4);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <>
+      {/* ------------------------------------------------------------ hero */}
+      <section className="border-b border-border bg-background-subtle">
+        <div className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 sm:py-24">
+          <Badge variant="brand" className="mx-auto">
+            Free Tools • Simple Solutions
+          </Badge>
+
+          <h1 className="mx-auto mt-5 max-w-3xl text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
+            Tools that make your work easier.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
+            Fast, simple and useful online tools for students, developers,
+            creators, businesses and everyday tasks.
           </p>
+
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+            <Link href="/tools" className={buttonVariants({ size: "lg" })}>
+              Explore Tools
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/categories"
+              className={buttonVariants({ variant: "outline", size: "lg" })}
+            >
+              <LayoutGrid className="h-4 w-4" />
+              Browse Categories
+            </Link>
+          </div>
+
+          <div className="mt-10">
+            <HeroSearch />
+          </div>
+
+          <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            {TRUST_POINTS.map((point) => (
+              <li
+                key={point}
+                className="flex items-center gap-1.5 text-sm text-muted-foreground"
+              >
+                <Check className="h-4 w-4 text-brand" />
+                {point}
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </section>
+
+      {/* ------------------------------------------------------ categories */}
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+              Browse by category
+            </h2>
+            <p className="mt-2 text-muted-foreground">
+              Every tool, grouped by what you are trying to get done.
+            </p>
+          </div>
+          <Link
+            href="/categories"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            All categories
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
-      </main>
-    </div>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {CATEGORIES.map((category) => (
+            <CategoryCard key={category.id} category={category} />
+          ))}
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------- popular */}
+      <section className="border-t border-border bg-background-subtle">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                Popular tools
+              </h2>
+              <p className="mt-2 text-muted-foreground">
+                The ones people reach for most.
+              </p>
+            </div>
+            <Link
+              href="/tools"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline"
+            >
+              All {TOOLS.length} tools
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {popular.map((tool) => (
+              <ToolCard key={tool.id} tool={tool} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------- new tools */}
+      {recent.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            New tools
+          </h2>
+          <p className="mt-2 text-muted-foreground">Recently added.</p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {recent.map((tool) => (
+              <ToolCard key={tool.id} tool={tool} />
+            ))}
+          </div>
+        </section>
+      )}
+    </>
   );
 }
