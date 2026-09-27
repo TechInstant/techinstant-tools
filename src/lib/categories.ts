@@ -8,6 +8,8 @@ import {
   Calculator,
   GraduationCap,
   Briefcase,
+  Globe,
+  HeartPulse,
 } from "lucide-react";
 
 export type CategoryId =
@@ -15,8 +17,10 @@ export type CategoryId =
   | "pdf"
   | "image"
   | "developer"
+  | "web"
   | "qr"
   | "calculators"
+  | "health"
   | "student"
   | "business";
 
@@ -68,12 +72,28 @@ export const CATEGORIES: Category[] = [
     accent: "text-emerald-700 dark:text-emerald-400 bg-emerald-500/10",
   },
   {
+    id: "web",
+    name: "Web Tools",
+    slug: "web",
+    description: "Build, check and publish for the web.",
+    icon: Globe,
+    accent: "text-blue-600 dark:text-blue-400 bg-blue-500/10",
+  },
+  {
     id: "qr",
     name: "QR Tools",
     slug: "qr",
     description: "Create and manage QR codes.",
     icon: QrCode,
     accent: "text-teal-700 dark:text-teal-400 bg-teal-500/10",
+  },
+  {
+    id: "health",
+    name: "Health Tools",
+    slug: "health",
+    description: "Private cycle, pregnancy and wellbeing calculators.",
+    icon: HeartPulse,
+    accent: "text-pink-600 dark:text-pink-400 bg-pink-500/10",
   },
   {
     id: "calculators",

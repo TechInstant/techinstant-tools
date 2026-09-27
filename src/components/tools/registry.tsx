@@ -56,6 +56,42 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   "images-to-pdf": dynamic(() => import("./implementations/images-to-pdf"), {
     loading,
   }),
+
+  /* Image tools — canvas based; exifr loads only inside the metadata viewer. */
+  "image-compressor": dynamic(() => import("./implementations/image-compressor"), {
+    loading,
+  }),
+  "image-resizer": dynamic(() => import("./implementations/image-resizer"), {
+    loading,
+  }),
+  "image-converter": dynamic(() => import("./implementations/image-converter"), {
+    loading,
+  }),
+  "image-cropper": dynamic(() => import("./implementations/image-cropper"), {
+    loading,
+  }),
+  "image-metadata": dynamic(() => import("./implementations/image-metadata"), {
+    loading,
+  }),
+
+  /* Health, student and web tools. */
+  "period-calculator": dynamic(() => import("./implementations/period-calculator"), {
+    loading,
+  }),
+  "due-date-calculator": dynamic(
+    () => import("./implementations/due-date-calculator"),
+    { loading }
+  ),
+  "bmi-calculator": dynamic(() => import("./implementations/bmi-calculator"), {
+    loading,
+  }),
+  "gpa-calculator": dynamic(() => import("./implementations/gpa-calculator"), {
+    loading,
+  }),
+  "meta-tag-generator": dynamic(
+    () => import("./implementations/meta-tag-generator"),
+    { loading }
+  ),
 };
 
 export function getToolComponent(slug: string): ComponentType | null {

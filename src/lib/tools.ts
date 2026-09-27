@@ -20,6 +20,11 @@ import {
   Type,
   Percent,
   CalendarDays,
+  Droplets,
+  Baby,
+  Activity,
+  GraduationCap,
+  Code2,
 } from "lucide-react";
 import type { CategoryId } from "./categories";
 
@@ -166,7 +171,7 @@ export const TOOLS: Tool[] = [
     icon: ImageDown,
     tags: ["image", "compress", "jpg", "png", "webp", "optimise", "size"],
     popular: true,
-    status: "soon",
+    status: "live",
     localProcessing: true,
     addedAt: 6,
   },
@@ -178,7 +183,7 @@ export const TOOLS: Tool[] = [
     category: "image",
     icon: Scaling,
     tags: ["image", "resize", "scale", "dimensions", "width", "height"],
-    status: "soon",
+    status: "live",
     localProcessing: true,
     addedAt: 7,
   },
@@ -190,7 +195,7 @@ export const TOOLS: Tool[] = [
     category: "image",
     icon: Repeat,
     tags: ["image", "convert", "jpg", "png", "webp", "format"],
-    status: "soon",
+    status: "live",
     localProcessing: true,
     addedAt: 8,
   },
@@ -202,7 +207,7 @@ export const TOOLS: Tool[] = [
     category: "image",
     icon: Crop,
     tags: ["image", "crop", "trim", "aspect ratio", "square"],
-    status: "soon",
+    status: "live",
     localProcessing: true,
     addedAt: 9,
   },
@@ -214,7 +219,7 @@ export const TOOLS: Tool[] = [
     category: "image",
     icon: Info,
     tags: ["image", "metadata", "exif", "camera", "gps", "inspect"],
-    status: "soon",
+    status: "live",
     localProcessing: true,
     addedAt: 10,
   },
@@ -350,6 +355,193 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 20,
+  },
+
+  /* ------------------------------------------------------------- HEALTH */
+  {
+    id: "period-calculator",
+    name: "Period & Cycle Calculator",
+    slug: "period-calculator",
+    description: "Estimate your next periods and fertile window.",
+    category: "health",
+    icon: Droplets,
+    tags: ["period", "cycle", "menstrual", "ovulation", "fertility", "women"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 21,
+    seoTitle: "Period & Ovulation Calculator",
+    seoDescription:
+      "Estimate your next period dates and fertile window privately. Nothing is saved or uploaded — it all happens in your browser.",
+    about: [
+      {
+        heading: "How the estimate works",
+        body: "Counting starts from the first day of your last period. Each following period is one cycle length later. Ovulation is estimated at about 14 days before the next period starts, and the fertile window covers the five days before ovulation plus the day itself, because sperm can survive several days.",
+      },
+      {
+        heading: "Why the dates move",
+        body: "Cycle length varies between people and from month to month. Stress, illness, travel, breastfeeding, contraception and thyroid conditions all shift it. Treat these dates as a guide, and track a few real cycles to find your own average.",
+      },
+    ],
+    faq: [
+      {
+        q: "Can I use this as contraception?",
+        a: "No. Predicted fertile windows are averages and are wrong often enough that they are not a reliable way to avoid pregnancy. Speak to a pharmacist or doctor about contraception that suits you.",
+      },
+      {
+        q: "Is my data stored anywhere?",
+        a: "No. The dates you enter stay in the browser tab and are never sent to a server or written to storage. Closing the tab clears them.",
+      },
+      {
+        q: "My cycle is irregular — is this still useful?",
+        a: "It gives a rough expectation, but the more your cycle varies the less precise it will be. If your cycle is consistently shorter than 21 days or longer than 35, it is worth mentioning to a doctor.",
+      },
+    ],
+  },
+  {
+    id: "due-date-calculator",
+    name: "Pregnancy Due Date Calculator",
+    slug: "due-date-calculator",
+    description: "Estimate a due date and see how far along you are.",
+    category: "health",
+    icon: Baby,
+    tags: ["pregnancy", "due date", "weeks", "trimester", "baby", "women"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 22,
+    seoTitle: "Pregnancy Due Date Calculator",
+    seoDescription:
+      "Work out your estimated due date, current week and trimester. Private, free and calculated entirely in your browser.",
+    about: [
+      {
+        heading: "How a due date is worked out",
+        body: "The standard method counts 280 days — 40 weeks — from the first day of your last period. That deliberately includes the roughly two weeks before conception, which is why you are counted as “two weeks pregnant” at the moment of conception. If your cycle is longer or shorter than 28 days, this tool shifts the date to match.",
+      },
+      {
+        heading: "How accurate is it?",
+        body: "Only about one baby in twenty arrives on the estimated date. Most arrive within two weeks either side. A dating scan in the first trimester is more accurate than any calculation, and is what your midwife will use.",
+      },
+    ],
+    faq: [
+      {
+        q: "I don't know my last period date.",
+        a: "Switch the method to conception date if you know it. Otherwise a dating scan is the reliable answer — this calculation needs one of those two dates.",
+      },
+      {
+        q: "Why does my cycle length change the result?",
+        a: "The 280-day rule assumes ovulation on day 14. If you ovulate later, conception happened later, so the due date moves later by the same number of days.",
+      },
+    ],
+  },
+  {
+    id: "bmi-calculator",
+    name: "BMI Calculator",
+    slug: "bmi-calculator",
+    description: "Check BMI and the healthy weight range for your height.",
+    category: "health",
+    icon: Activity,
+    tags: ["bmi", "weight", "height", "health", "body mass index"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 23,
+    about: [
+      {
+        heading: "What BMI actually measures",
+        body: "BMI is your weight in kilograms divided by your height in metres squared. It is a quick population-level screen, not a measurement of health or body composition. It cannot tell muscle from fat.",
+      },
+      {
+        heading: "When BMI misleads",
+        body: "Muscular people often read as overweight when they are not. BMI is also a poor guide during pregnancy, for children and teenagers, for older adults who have lost muscle, and it sits differently across ethnic groups. Waist measurement is often more informative.",
+      },
+    ],
+    faq: [
+      {
+        q: "What counts as a healthy BMI?",
+        a: "For most adults, 18.5 to 24.9. Below that is classed as underweight, 25 to 29.9 as overweight, and 30 or above as obese. These are screening bands, not a diagnosis.",
+      },
+    ],
+  },
+
+  /* ------------------------------------------------------------ STUDENT */
+  {
+    id: "gpa-calculator",
+    name: "GPA & CGPA Calculator",
+    slug: "gpa-calculator",
+    description: "Work out semester GPA and cumulative CGPA on a 5.0 or 4.0 scale.",
+    category: "student",
+    icon: GraduationCap,
+    tags: ["gpa", "cgpa", "grade", "university", "student", "class of degree"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 24,
+    seoTitle: "GPA & CGPA Calculator (5.0 and 4.0 scale)",
+    seoDescription:
+      "Calculate your semester GPA and cumulative CGPA on either the 5.0 or 4.0 scale, with class of degree. Free and private.",
+    about: [
+      {
+        heading: "How GPA is calculated",
+        body: "Each course grade is worth a number of grade points. Multiply those points by the course's credit units, add up the total across every course, then divide by the total units. Units matter — a five-unit course pulls your average far harder than a one-unit course.",
+      },
+      {
+        heading: "GPA versus CGPA",
+        body: "GPA covers one semester. CGPA covers everything so far. To get CGPA here, enter your previous GPA and the total units it was earned over, and this tool weights the two together properly rather than just averaging them.",
+      },
+    ],
+    faq: [
+      {
+        q: "Which scale should I choose?",
+        a: "Most Nigerian universities use the 5.0 scale where an A is worth 5 points. Many institutions elsewhere use 4.0. Check your student handbook — the grade boundaries matter as much as the scale.",
+      },
+      {
+        q: "Why is my CGPA different from my school portal?",
+        a: "Institutions differ on how they treat repeated courses, carry-overs and electives. This tool does a straight weighted average, so a repeat policy will make it diverge.",
+      },
+    ],
+  },
+
+  /* ---------------------------------------------------------------- WEB */
+  {
+    id: "meta-tag-generator",
+    name: "Meta Tag Generator",
+    slug: "meta-tag-generator",
+    description: "Build title, description, Open Graph and X tags with a live preview.",
+    category: "web",
+    icon: Code2,
+    tags: ["meta", "seo", "open graph", "og", "twitter", "html", "head"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 25,
+    seoTitle: "Meta Tag & Open Graph Generator",
+    seoDescription:
+      "Generate SEO meta tags, Open Graph and X/Twitter card markup with a live search-result preview. Copy straight into your head.",
+    about: [
+      {
+        heading: "Why meta tags matter",
+        body: "The title and description are what people read in search results before deciding whether to click. Open Graph tags control what appears when your link is pasted into WhatsApp, LinkedIn, Facebook or Slack — without them you get a bare URL and no image.",
+      },
+      {
+        heading: "Getting the lengths right",
+        body: "Titles are usually cut around 60 characters and descriptions around 155. The counters here warn you before that happens. Write for the person reading, not the algorithm — a clear promise beats keyword stuffing.",
+      },
+    ],
+    faq: [
+      {
+        q: "What size should the share image be?",
+        a: "1200 × 630 pixels is the safe choice — it works on every major platform. Use an absolute URL, not a relative path, or the image will not load when the link is shared.",
+      },
+      {
+        q: "Do I still need Twitter tags?",
+        a: "X falls back to Open Graph when its own tags are missing, so they are optional. Including them gives you control over how the card looks there specifically.",
+      },
+    ],
   },
 ];
 

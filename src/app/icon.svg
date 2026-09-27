@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Dark tile so the green mark stays legible at 16px in both light and dark
+       browser chrome. Same leaf-bolt artwork as the main TechInstant site. -->
+  <rect width="32" height="32" rx="7" fill="#0B1220"/>
+  <g transform="translate(4.95 3) scale(0.65)">
+    <path
+      d="M23 0.8 L25.5 2 L22.5 12 L29 12
+         C32 14.2 33 16.5 33 20
+         C32.4 30.5 15.5 37.5 11 39.2
+         L8.5 38 L11.5 28 L5 28
+         C2 25.8 1 23.5 1 20
+         C1.6 9.5 18.5 2.5 23 0.8 Z"
+      fill="url(#leaf)" stroke="url(#leaf)" stroke-width="1.6" stroke-linejoin="round"/>
+    <path
+      d="M20.5 5.5 L16.3 17.5 L23.6 17.5 L17 28.8 L18.1 21.5 L12 21.5 Z"
+      fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0.9" stroke-linejoin="round"/>
+  </g>
+  <defs>
+    <linearGradient id="leaf" x1="8" y1="2" x2="26" y2="30" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1AD280"/>
+      <stop offset="0.5" stop-color="#04A85C"/>
+      <stop offset="1" stop-color="#00934F"/>
+    </linearGradient>
+  </defs>
+</svg>
