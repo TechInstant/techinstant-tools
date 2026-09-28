@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Check, LayoutGrid } from "lucide-react";
 import { HeroSearch } from "@/components/home/hero-search";
+import { FAQ } from "@/components/home/faq";
 import { ToolCard } from "@/components/tools/tool-card";
 import { CategoryCard } from "@/components/tools/category-card";
 import { CATEGORIES } from "@/lib/categories";
@@ -133,6 +134,8 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      <FAQ />
     </>
   );
 }

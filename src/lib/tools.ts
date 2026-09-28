@@ -30,6 +30,13 @@ import {
   CaseSensitive,
   BookOpen,
   ScanSearch,
+  HeartHandshake,
+  ShoppingBasket,
+  FileSpreadsheet,
+  Receipt,
+  CreditCard,
+  Award,
+  MapPin,
 } from "lucide-react";
 import type { CategoryId } from "./categories";
 
@@ -895,6 +902,346 @@ export const TOOLS: Tool[] = [
       {
         q: "Is my document uploaded?",
         a: "No. PDFs are parsed in your browser and text never leaves the tab. That matters here, because the documents people want to check are often confidential.",
+      },
+    ],
+  },
+
+  /* ------------------------------------------------ women's health guides */
+  {
+    id: "postpartum-guide",
+    name: "Postpartum Care Guide",
+    slug: "postpartum-guide",
+    description: "Essential information and tips for recovery after childbirth.",
+    category: "health",
+    icon: HeartHandshake,
+    tags: ["postpartum", "postnatal", "recovery", "childbirth", "fourth trimester", "new mother"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 31,
+    seoTitle: "Postpartum Care Guide — Recovery Checklist After Birth",
+    seoDescription:
+      "An interactive postpartum recovery checklist covering the first weeks, your body, your mind and the symptoms that need medical help straight away.",
+    about: [
+      {
+        heading: "Why the weeks after birth need their own checklist",
+        body: "Almost all the attention goes on pregnancy and the birth itself, and then it stops. The weeks afterwards are when you are most tired, most likely to miss a symptom in yourself, and least able to go looking for information. A short list you can tick off beats searching at three in the morning.",
+      },
+      {
+        heading: "How to use it",
+        body: "Read it once while you are still pregnant so you know what is coming, then work through it afterwards. Tick what you have done, print it for a partner or whoever is helping you, and pay particular attention to the last section — those are the symptoms not to wait on.",
+      },
+      {
+        heading: "What this is not",
+        body: "It is general information, not a care plan. Recovery differs enormously, especially after a caesarean or a difficult birth, and your midwife, health visitor or doctor knows your circumstances. Where their advice differs from anything here, follow theirs.",
+      },
+    ],
+    faq: [
+      {
+        q: "How long does recovery after birth actually take?",
+        a: "Bleeding usually settles within two to six weeks, but feeling like yourself again commonly takes several months, and longer after a caesarean. There is no schedule you are supposed to keep to.",
+      },
+      {
+        q: "When should I contact someone rather than wait?",
+        a: "Heavy bleeding, fever, a hot or leaking wound, severe headache or vision changes, pain or swelling in one leg, chest pain, and any thought of harming yourself or the baby. All of these are reasons to make contact immediately, and none of them is wasting anyone's time.",
+      },
+      {
+        q: "Is feeling low normal?",
+        a: "Feeling tearful in the first week is very common and usually passes. If low mood deepens or lasts beyond two weeks, that may be postnatal depression — common, treatable, and much easier dealt with early.",
+      },
+      {
+        q: "Is anything I tick saved?",
+        a: "No. The ticks live in the page while it is open and are gone when you close it. Nothing is stored or sent anywhere, which is deliberate for a tool like this.",
+      },
+    ],
+  },
+  {
+    id: "pregnancy-shopping-list",
+    name: "Pregnancy Shopping List",
+    slug: "pregnancy-shopping-list",
+    description: "Essential items to prepare for your pregnancy and baby arrival.",
+    category: "health",
+    icon: ShoppingBasket,
+    tags: ["pregnancy", "baby", "shopping list", "hospital bag", "newborn", "checklist"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 32,
+    seoTitle: "Pregnancy & Newborn Shopping List — Printable Checklist",
+    seoDescription:
+      "A practical checklist of what you actually need before the baby arrives, from the hospital bag to sleeping, feeding and changing. Tick, copy or print it.",
+    about: [
+      {
+        heading: "Why most baby lists are too long",
+        body: "Shops have an obvious interest in a long list. In practice a newborn needs somewhere safe to sleep, something to wear, nappies, a way to feed, and a car seat if you travel by car. This list puts those first and marks the rest as what it is — useful, but not urgent.",
+      },
+      {
+        heading: "How to use it",
+        body: "Tick what you already have or have been given, then buy in that order: sleeping, feeding, changing, car seat, everything else. Pack the hospital bag section around 34 weeks. You can copy the list as text or print it to take shopping.",
+      },
+      {
+        heading: "Second-hand, with two exceptions",
+        body: "Most of this can be borrowed or bought used and nobody will ever know. The exceptions are cot mattresses and car seats: buy those new, or only from someone you trust completely, because a mattress that no longer fits firmly and a seat that has been in a collision both matter.",
+      },
+    ],
+    faq: [
+      {
+        q: "When should I start buying?",
+        a: "Many people start in the second trimester and pack the hospital bag by around 34 weeks. There is no need to have everything early — almost anything can be bought or delivered after the birth.",
+      },
+      {
+        q: "How many newborn clothes do I need?",
+        a: "Fewer than you think, and not too many in newborn size — some babies outgrow it within weeks. Six or seven sleepsuits and vests is plenty to start with.",
+      },
+      {
+        q: "What do people most often forget?",
+        a: "Maternity pads in enough quantity, a long phone charging cable for the hospital, a nightlight for feeds, and meals in the freezer. The last one is the most appreciated.",
+      },
+      {
+        q: "Can I print or share the list?",
+        a: "Yes. Print it, or copy it as plain text to paste into a message or notes app. Nothing you tick is saved or sent anywhere.",
+      },
+    ],
+  },
+
+  /* ------------------------------------------------------------- business */
+  {
+    id: "invoice-generator",
+    name: "Invoice Generator",
+    slug: "invoice-generator",
+    description: "Create a professional invoice PDF and download it instantly.",
+    category: "business",
+    icon: FileSpreadsheet,
+    tags: ["invoice", "billing", "pdf", "freelance", "small business", "tax"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 33,
+    seoTitle: "Free Invoice Generator — Download an Invoice PDF",
+    seoDescription:
+      "Build an invoice with line items, tax and totals, and download it as a PDF. No sign-up, no watermark, and nothing you type is uploaded.",
+    about: [
+      {
+        heading: "What belongs on an invoice",
+        body: "Who it is from and who it is to, a unique invoice number, the date it was issued and the date payment is due, a line for each thing you are charging for, the tax if you charge any, and the total. Bank or payment details in the notes save your client having to ask.",
+      },
+      {
+        heading: "How to use it",
+        body: "Fill in your details and your client's, add a line per item with quantity and unit price, and the totals update as you type. Set a tax rate if you need one, then download the PDF. Keep the invoice numbers sequential so your records stay easy to follow.",
+      },
+      {
+        heading: "Getting paid faster",
+        body: "State the due date rather than “30 days”, put the payment method in the notes, and send it the day the work finishes. Most late payments are late because the invoice arrived late or was unclear about where the money should go.",
+      },
+    ],
+    faq: [
+      {
+        q: "Is there a watermark or a sign-up?",
+        a: "Neither. The PDF is yours, unbranded, and you do not need an account.",
+      },
+      {
+        q: "Are my client's details sent anywhere?",
+        a: "No. The PDF is built in your browser, so the names, amounts and addresses never leave your device.",
+      },
+      {
+        q: "Can I use a currency other than the naira?",
+        a: "Yes — the currency field takes whatever you type. A few symbols cannot be drawn by the PDF's built-in fonts, in which case use the currency code instead, such as NGN, USD or EUR.",
+      },
+      {
+        q: "Is this invoice legally valid?",
+        a: "An invoice is valid on its content, not its design, and this includes the fields normally required. Tax rules differ by country though, so check what your own tax authority expects — particularly around tax registration numbers.",
+      },
+    ],
+  },
+  {
+    id: "receipt-generator",
+    name: "Receipt Generator",
+    slug: "receipt-generator",
+    description: "Produce a clean receipt PDF confirming a payment you have received.",
+    category: "business",
+    icon: Receipt,
+    tags: ["receipt", "payment", "proof of payment", "pdf", "business", "sales"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 34,
+    seoTitle: "Free Receipt Generator — Download a Receipt PDF",
+    seoDescription:
+      "Create a receipt for a payment you have received and download it as a PDF. Free, no sign-up, and built entirely in your browser.",
+    about: [
+      {
+        heading: "A receipt is not an invoice",
+        body: "An invoice asks for money; a receipt confirms it has been paid. If you have been paid in cash or by transfer and the customer wants proof, a receipt is what they are asking for — it records what was bought, how much was paid, and how.",
+      },
+      {
+        heading: "How to use it",
+        body: "Enter who the payment came from, what it was for, and how it was paid. The document is marked as paid and downloads as a PDF you can print or email. Give each receipt its own number so you can match it against your records later.",
+      },
+      {
+        heading: "Keep your copy",
+        body: "Issue one and keep one. If you are ever asked to account for income, a numbered run of receipts with no gaps is far easier to explain than a folder of bank entries.",
+      },
+    ],
+    faq: [
+      {
+        q: "Can I use this for a cash payment?",
+        a: "Yes, and that is the most common reason people need one. Put “Cash” in the paid-with field.",
+      },
+      {
+        q: "Does it work as a tax record?",
+        a: "It is a normal receipt and serves as a record of what you were paid. What your tax authority requires you to keep varies by country, so check locally, especially if you are registered for VAT or a sales tax.",
+      },
+      {
+        q: "Is anything uploaded?",
+        a: "No. The receipt is generated in your browser and the details never leave your device.",
+      },
+    ],
+  },
+  {
+    id: "business-card-maker",
+    name: "Business Card Maker",
+    slug: "business-card-maker",
+    description: "Design a business card and export it print-ready as PNG or PDF.",
+    category: "business",
+    icon: CreditCard,
+    tags: ["business card", "design", "print", "pdf", "png", "branding"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 35,
+    seoTitle: "Free Business Card Maker — Print-Ready PNG & PDF",
+    seoDescription:
+      "Design a business card in your browser and download it at 300 DPI as a PNG or a print PDF. Four clean styles, no sign-up, no watermark.",
+    about: [
+      {
+        heading: "What makes a card work",
+        body: "A card has one job: make it easy to contact you. Name, what you do, and two or three ways to reach you. Cards fail by being crowded — every extra line makes the important ones harder to find.",
+      },
+      {
+        heading: "How to use it",
+        body: "Type your details and the preview updates as you go. Pick one of the four styles, then download either the PNG for digital use or the print PDF. Both export at the standard 3.5 × 2 inch size at 300 DPI, which is what a print shop expects.",
+      },
+      {
+        heading: "Before you send it to print",
+        body: "Ask your printer whether they want bleed. If they do, they will usually ask for an extra 3mm around the edge, so send them the PDF and let them add it rather than guessing. And read your phone number and email out loud from the preview — it is the single most common expensive mistake.",
+      },
+    ],
+    faq: [
+      {
+        q: "What resolution does it export at?",
+        a: "300 DPI — 1050 × 600 pixels for a standard 3.5 × 2 inch card. That is high enough for commercial printing.",
+      },
+      {
+        q: "Can I add my logo?",
+        a: "Not yet. The current styles use your company name as the visual element, including its initials. Logo upload is on the list.",
+      },
+      {
+        q: "Is my information uploaded?",
+        a: "No. The card is drawn on a canvas in your browser and the file is saved straight to your device.",
+      },
+      {
+        q: "PNG or PDF for printing?",
+        a: "Send the PDF if your printer accepts one, since it carries the exact physical size. The PNG is better for email signatures, messaging apps and anywhere it will be viewed on screen.",
+      },
+    ],
+  },
+  {
+    id: "certificate-generator",
+    name: "Certificate Generator",
+    slug: "certificate-generator",
+    description: "Create a certificate of completion or achievement as a PDF.",
+    category: "business",
+    icon: Award,
+    tags: ["certificate", "award", "completion", "training", "pdf", "course"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 36,
+    seoTitle: "Free Certificate Generator — Certificate of Completion PDF",
+    seoDescription:
+      "Make a certificate of completion, achievement or attendance and download it as an A4 landscape PDF. Four colour styles, no sign-up.",
+    about: [
+      {
+        heading: "What a certificate needs to say",
+        body: "Who earned it, what they did, who says so, and when. A reference number is worth adding if anyone might need to verify it later — it turns the certificate from a decoration into a record you can look up.",
+      },
+      {
+        heading: "How to use it",
+        body: "Set the title, the recipient's name and what they completed. The organisation's initials appear in the seal, and the name is automatically sized to fit however long it is. Download the A4 landscape PDF and print it, or email it as it is.",
+      },
+      {
+        heading: "Issuing more than a few",
+        body: "For a whole cohort, keep a simple spreadsheet of names against reference numbers as you go. It takes a minute per certificate and means you can answer “can you confirm this person completed the course?” years later.",
+      },
+    ],
+    faq: [
+      {
+        q: "What size is the certificate?",
+        a: "A4 landscape, which prints on standard paper anywhere in the world outside North America. It will also print on US Letter, with slightly larger margins.",
+      },
+      {
+        q: "Can I add a real signature?",
+        a: "The signature line is left blank for you to sign by hand after printing, with the name and role printed beneath it. Signature image upload is not supported yet.",
+      },
+      {
+        q: "Will a long name still fit?",
+        a: "Yes. The name is measured and the type size reduced until it fits the page, so it will not run off the edge.",
+      },
+      {
+        q: "Is anything sent to a server?",
+        a: "No. The certificate is built in your browser, so recipients' names stay on your device.",
+      },
+    ],
+  },
+
+  /* ------------------------------------------------------------------ web */
+  {
+    id: "ip-location-checker",
+    name: "IP Location Checker",
+    slug: "ip-location-checker",
+    description: "Look up the approximate location and network behind an IP address.",
+    category: "web",
+    icon: MapPin,
+    tags: ["ip", "geolocation", "location", "isp", "asn", "network", "my ip"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    addedAt: 37,
+    seoTitle: "IP Location Checker — Find the Location of an IP Address",
+    seoDescription:
+      "Check the approximate city, country, time zone and network behind any IP address, or look up your own. Uses a third-party geolocation service.",
+    about: [
+      {
+        heading: "This one needs the network",
+        body: "Nearly every tool here runs entirely on your device. This one cannot: the mapping from IP addresses to places lives in databases maintained by other companies. When you press Look up, your browser contacts a third-party geolocation provider, which means your IP address is sent to them.",
+      },
+      {
+        heading: "How to use it",
+        body: "Leave the box empty and press Look up to see what the internet sees when you connect. Or type any IP address — a server you are debugging, or one from a log file — to see where that network is registered.",
+      },
+      {
+        heading: "How accurate is it, really",
+        body: "It identifies the network you connect through, not you. City-level accuracy is usually reasonable on home broadband and often wrong on mobile data, company VPNs and satellite connections, sometimes by an entire country. It never gives a street address, and it cannot identify a person or a device.",
+      },
+    ],
+    faq: [
+      {
+        q: "Does this tool send my IP address anywhere?",
+        a: "Yes, and that is unavoidable for this kind of lookup. The request goes from your browser to a third-party geolocation provider (ipwho.is, falling back to ipapi.co), and your IP is part of that request. We do not store or see the result.",
+      },
+      {
+        q: "Can an IP address find someone's home?",
+        a: "No. It locates the network's registration, typically to a city or region. Only the person's internet provider can connect an address to a subscriber, and they release that only to a court or the police.",
+      },
+      {
+        q: "Why is my location wrong?",
+        a: "Usually a VPN, a mobile network routing through a distant hub, or a provider whose address range is registered elsewhere. The database is describing the network, and the network genuinely is somewhere else.",
+      },
+      {
+        q: "Can I look up a website instead of an IP?",
+        a: "Not directly — the box takes an IP address. A domain has to be resolved to an IP first, which a browser cannot do on its own.",
       },
     ],
   },

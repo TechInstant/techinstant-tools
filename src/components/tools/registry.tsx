@@ -113,6 +113,37 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
     () => import("./implementations/hidden-text-scanner"),
     { loading }
   ),
+
+  /* Women's health guides. */
+  "postpartum-guide": dynamic(() => import("./implementations/postpartum-guide"), {
+    loading,
+  }),
+  "pregnancy-shopping-list": dynamic(
+    () => import("./implementations/pregnancy-shopping-list"),
+    { loading }
+  ),
+
+  /* Business documents — invoice and receipt share one engine. */
+  "invoice-generator": dynamic(() => import("./implementations/invoice-generator"), {
+    loading,
+  }),
+  "receipt-generator": dynamic(() => import("./implementations/receipt-generator"), {
+    loading,
+  }),
+  "business-card-maker": dynamic(
+    () => import("./implementations/business-card-maker"),
+    { loading }
+  ),
+  "certificate-generator": dynamic(
+    () => import("./implementations/certificate-generator"),
+    { loading }
+  ),
+
+  /* The one tool that needs the network — see its in-page notice. */
+  "ip-location-checker": dynamic(
+    () => import("./implementations/ip-location-checker"),
+    { loading }
+  ),
 };
 
 export function getToolComponent(slug: string): ComponentType | null {
