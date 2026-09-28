@@ -92,6 +92,27 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
     () => import("./implementations/meta-tag-generator"),
     { loading }
   ),
+
+  /* Student batch. */
+  "citation-generator": dynamic(
+    () => import("./implementations/citation-generator"),
+    { loading }
+  ),
+  "grade-calculator": dynamic(() => import("./implementations/grade-calculator"), {
+    loading,
+  }),
+  "text-case-converter": dynamic(
+    () => import("./implementations/text-case-converter"),
+    { loading }
+  ),
+  "readability-checker": dynamic(
+    () => import("./implementations/readability-checker"),
+    { loading }
+  ),
+  "hidden-text-scanner": dynamic(
+    () => import("./implementations/hidden-text-scanner"),
+    { loading }
+  ),
 };
 
 export function getToolComponent(slug: string): ComponentType | null {

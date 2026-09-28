@@ -25,6 +25,11 @@ import {
   Activity,
   GraduationCap,
   Code2,
+  Quote,
+  Target,
+  CaseSensitive,
+  BookOpen,
+  ScanSearch,
 } from "lucide-react";
 import type { CategoryId } from "./categories";
 
@@ -696,6 +701,200 @@ export const TOOLS: Tool[] = [
       {
         q: "Do I still need Twitter tags?",
         a: "X falls back to Open Graph when its own tags are missing, so they are optional. Including them gives you control over how the card looks there specifically.",
+      },
+    ],
+  },
+
+  /* ------------------------------------------------- STUDENT (batch 2) */
+  {
+    id: "citation-generator",
+    name: "Citation Generator",
+    slug: "citation-generator",
+    description: "Build APA, MLA, Harvard and Chicago references.",
+    category: "student",
+    icon: Quote,
+    tags: ["citation", "reference", "apa", "mla", "harvard", "chicago", "bibliography"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 26,
+    seoTitle: "Citation Generator — APA, MLA, Harvard, Chicago",
+    seoDescription:
+      "Generate correctly formatted references and in-text citations in APA 7, MLA 9, Harvard and Chicago. Free and private.",
+    about: [
+      {
+        heading: "Why citations matter",
+        body: "Citing properly is what separates using a source from taking it. It credits the person who did the work, and it lets a reader follow your reasoning back to where it came from. Most accidental plagiarism is a citation someone forgot, not deliberate copying.",
+      },
+      {
+        heading: "Picking the right style",
+        body: "Your department decides, not you — check the handbook before you start. APA is usual in psychology, education and the sciences; MLA in literature and the humanities; Harvard is widespread in the UK and Australia; Chicago in history and the arts.",
+      },
+    ],
+    faq: [
+      {
+        q: "How do I enter several authors?",
+        a: "Separate them with a semicolon, like Ada Lovelace; Alan Turing. Each style has its own rule for how many are listed before et al., and that is applied for you.",
+      },
+      {
+        q: "Do I need the date I accessed a web page?",
+        a: "MLA and Harvard expect it. APA only wants it for pages likely to change. When in doubt, include it.",
+      },
+      {
+        q: "Will this match my university's guide exactly?",
+        a: "It follows the published rules for each style, but institutions add house variations. Check one entry against your handbook before generating fifty.",
+      },
+    ],
+  },
+  {
+    id: "grade-calculator",
+    name: "Grade Calculator",
+    slug: "grade-calculator",
+    description: "See your current grade and what you need on what's left.",
+    category: "student",
+    icon: Target,
+    tags: ["grade", "marks", "exam", "weighted", "average", "student", "final"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 27,
+    seoTitle: "Grade Calculator — What Do I Need on the Final?",
+    seoDescription:
+      "Work out your current weighted grade and exactly what score you need on remaining assessments to hit your target.",
+    about: [
+      {
+        heading: "Weighted grades, not averages",
+        body: "A 10% quiz and a 50% exam do not count the same. This multiplies each score by its weight, which is how your institution actually calculates the final mark — and why a bad result on a small assessment matters far less than it feels like it does.",
+      },
+      {
+        heading: "What you need on what's left",
+        body: "Enter a target and it works backwards: the mark you have banked, the weight still available, and the average you need across everything remaining. If that number is above 100 it says so, because knowing a target is out of reach is more useful than a false hope.",
+      },
+    ],
+    faq: [
+      {
+        q: "What if my weights don't add to 100?",
+        a: "That is fine while the module is in progress — the remainder is treated as still to come. If they add to more than 100 the tool flags it, because something has been entered twice.",
+      },
+      {
+        q: "Can I use this for a whole degree?",
+        a: "It works for any weighted set. For a degree classification, use year weightings as the weights and year averages as the scores.",
+      },
+    ],
+  },
+  {
+    id: "text-case-converter",
+    name: "Text Case Converter",
+    slug: "text-case-converter",
+    description: "Convert text to title, sentence, camel, snake and kebab case.",
+    category: "student",
+    icon: CaseSensitive,
+    tags: ["case", "text", "title case", "camelcase", "snake_case", "kebab", "uppercase"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 28,
+    about: [
+      {
+        heading: "Ten cases at once",
+        body: "Paste once and every conversion appears together, so you can pick the one that fits rather than converting repeatedly. Copy any of them with a single click.",
+      },
+      {
+        heading: "Title case is not just capitals",
+        body: "Proper title case leaves short words like a, the, of and in lowercase — unless they open or close the title. That rule is applied here, which is why it does not simply capitalise everything.",
+      },
+    ],
+    faq: [
+      {
+        q: "What is the difference between camelCase and PascalCase?",
+        a: "Both remove spaces and capitalise each word. camelCase leaves the first letter lowercase, PascalCase capitalises it. Variables usually use camel, types and components use Pascal.",
+      },
+      {
+        q: "Which case should a URL use?",
+        a: "kebab-case. Hyphens are read as word separators by search engines, underscores are not.",
+      },
+    ],
+  },
+  {
+    id: "readability-checker",
+    name: "Readability Checker",
+    slug: "readability-checker",
+    description: "Score your writing and find the sentences slowing it down.",
+    category: "student",
+    icon: BookOpen,
+    tags: ["readability", "flesch", "grade level", "writing", "essay", "clarity"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 29,
+    seoTitle: "Readability Checker — Flesch Reading Ease & Grade Level",
+    seoDescription:
+      "Check Flesch Reading Ease and Flesch–Kincaid grade level, and see which sentences are dragging your writing down.",
+    about: [
+      {
+        heading: "What the score measures",
+        body: "Flesch Reading Ease combines average sentence length with average syllables per word. Higher is easier. It measures how hard the sentences are to process — not whether the argument is any good.",
+      },
+      {
+        heading: "How to improve it",
+        body: "Shorten the long sentences first; it moves the score more than anything else. Swapping a long word for a short one helps, but only when the short word means the same thing. Do not simplify past the point where you are saying what you mean.",
+      },
+    ],
+    faq: [
+      {
+        q: "What score should I aim for?",
+        a: "Around 60 to 70 is plain English and suits most readers. Academic writing usually lands in the 30s and that is expected — do not force an essay to read like a leaflet.",
+      },
+      {
+        q: "Is the grade level about school years?",
+        a: "It maps to US school grades, so 8 means roughly a 13-year-old could follow it. It is a rough guide, not a judgement on your reader.",
+      },
+    ],
+  },
+  {
+    id: "hidden-text-scanner",
+    name: "Hidden Text & Prompt Injection Scanner",
+    slug: "hidden-text-scanner",
+    description: "Find invisible characters and hidden instructions in text or PDFs.",
+    category: "student",
+    icon: ScanSearch,
+    tags: ["hidden text", "prompt injection", "invisible", "unicode", "pdf", "security", "zero width"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 30,
+    seoTitle: "Hidden Text & Prompt Injection Scanner",
+    seoDescription:
+      "Check any document for invisible characters, unreadably small text and hidden instructions aimed at AI readers. Runs entirely in your browser.",
+    about: [
+      {
+        heading: "What gets hidden in documents",
+        body: "Text can be made invisible in several ways: zero-width Unicode characters that occupy no space, a font size so small it cannot be read, or text positioned outside the printable page. All three survive copy and paste, and all three are invisible when you read the document normally.",
+      },
+      {
+        heading: "Why it matters now",
+        body: "Hidden text is increasingly used to manipulate automated readers. A CV can carry an instruction telling a screening system to rate it highly; a submitted assignment can carry one telling a marking assistant to award full marks. If you run documents through any automated process, it is worth knowing what is actually in them.",
+      },
+      {
+        heading: "Reading the result",
+        body: "Findings are observations, not accusations. Zero-width joiners are perfectly normal in Arabic, Hindi and emoji. Directional marks are normal in any right-to-left language. What matters is whether the finding makes sense for the document in front of you.",
+      },
+    ],
+    faq: [
+      {
+        q: "Does this prove someone cheated?",
+        a: "No, and it should not be used that way. It reports what is present in the file. Several of the things it finds have entirely innocent explanations, which is why each finding explains itself rather than giving a score.",
+      },
+      {
+        q: "Can it clean a document?",
+        a: "It can strip invisible characters from text and give you the cleaned version to copy. Tiny or off-page text inside a PDF is reported but not removed, because removing it would mean rebuilding the file.",
+      },
+      {
+        q: "Is my document uploaded?",
+        a: "No. PDFs are parsed in your browser and text never leaves the tab. That matters here, because the documents people want to check are often confidential.",
       },
     ],
   },
