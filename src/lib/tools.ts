@@ -118,6 +118,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 2,
+    about: [
+      { heading: "What splitting a PDF does", body: "Splitting pulls the pages you name out of a document and writes them to a new PDF, leaving the original untouched. It is how you send one chapter instead of a whole report, or strip a signature page off a contract before sharing it." },
+      { heading: "Choosing pages", body: "Enter single pages, ranges, or both — 1-3, 5, 8-10. Pages come out in the order you list them, and duplicates are ignored, so you can reorder while you extract." },
+    ],
+    faq: [
+      { q: "Does the original file change?", a: "No. The original stays exactly as it was on your device — a new file is created for the pages you chose." },
+      { q: "Why does it say my page is out of range?", a: "The number you asked for is higher than the page count of the file you loaded. The tool shows the real page count next to the file name." },
+    ],
   },
   {
     id: "compress-pdf",
@@ -132,6 +140,15 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 3,
+    about: [
+      { heading: "What PDF compression actually does", body: "Most of the weight in a large PDF is images. This tool re-renders each page and re-encodes it as a JPEG at the quality you choose, then rebuilds the document at the original page size. That is the only way to genuinely shrink a PDF inside a browser, with no server involved." },
+      { heading: "The trade-off worth knowing", body: "Because pages become images, text in the result is no longer selectable or searchable. For scans and image-heavy documents that costs you nothing. For a text document it can make the file larger, and the tool tells you when that happens rather than hiding it." },
+    ],
+    faq: [
+      { q: "Which level should I pick?", a: "Medium suits most files. Use Low when quality matters more than size, and High when you need to get under an upload limit and can accept softer pages." },
+      { q: "My file got bigger. Why?", a: "Text-only PDFs are already far smaller as text than as images. Keep your original — the tool says so when the result grows." },
+      { q: "Are my files uploaded?", a: "No. Rendering and rebuilding both happen in your browser, so the file never leaves your device." },
+    ],
     seoTitle: "Compress PDF Online Free",
     seoDescription:
       "Compress PDF files quickly with TechInstant Tools. Simple, fast and privacy-conscious PDF compression in your browser.",
@@ -147,6 +164,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 4,
+    about: [
+      { heading: "Turning pages into pictures", body: "Each page you select is rendered at the resolution you choose and saved as a PNG or JPG. Useful for slide decks, for pasting a page into a document, or for sharing one page where a PDF would be awkward." },
+      { heading: "PNG or JPG?", body: "PNG is lossless and handles text and line art crisply, which makes it the safer default. JPG produces much smaller files and suits pages that are mostly photographs." },
+    ],
+    faq: [
+      { q: "What does the quality setting change?", a: "It sets the render scale. 2x renders each page at twice its natural size, which keeps small text legible when you zoom in. Higher settings produce larger files." },
+      { q: "Can I convert just one page?", a: "Yes — put a single number in the pages field, or a mix like 1, 4, 9." },
+    ],
   },
   {
     id: "images-to-pdf",
@@ -159,6 +184,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 5,
+    about: [
+      { heading: "Why put images in a PDF", body: "One PDF is easier to send, print and archive than a folder of photos, and it keeps your pages in a fixed order. This is the usual way to turn phone photos of a document back into something you can submit." },
+      { heading: "Page size and fit", body: "A4 and US Letter place each image inside the page with a margin you choose, keeping the aspect ratio so nothing is stretched. Fit to image makes every page exactly the size of its picture instead, which avoids white borders." },
+    ],
+    faq: [
+      { q: "Can I change the order?", a: "Yes. Drag a file, or use the arrows, and the PDF follows that order." },
+      { q: "Which formats work?", a: "JPG and PNG. Both are embedded directly, so quality is not reduced when the page size is Fit to image." },
+    ],
   },
 
   /* -------------------------------------------------------------- IMAGE */
@@ -174,6 +207,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 6,
+    about: [
+      { heading: "How image compression works", body: "JPG and WebP discard detail the eye is least likely to miss. Lowering quality removes more of it and makes the file smaller. There is no single right number — it depends on the picture and where it will be used." },
+      { heading: "Picking a format", body: "WebP is usually 25 to 35 percent smaller than JPG at the same visual quality and is supported everywhere that matters now. JPG remains the safest for anything that will be opened by older software. PNG is lossless, so the quality slider does not apply to it." },
+    ],
+    faq: [
+      { q: "What quality should I use?", a: "Around 70 percent is a good starting point for photos on the web. Compare the before and after previews and go lower until you can see the difference, then step back." },
+      { q: "Is the original changed?", a: "No. Compression happens on a copy in your browser and you download the result — your file on disk is untouched." },
+    ],
   },
   {
     id: "image-resizer",
@@ -186,6 +227,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 7,
+    about: [
+      { heading: "Resizing without distortion", body: "Changing width and height independently squashes a picture. Keeping the aspect ratio locked means setting one dimension and letting the other follow, so faces and shapes stay the right proportions." },
+      { heading: "Making images smaller, not just look smaller", body: "Scaling an image down in a document only changes how it is displayed — the file is still full size. Resizing it properly, as this does, reduces the actual pixels and the file size with them." },
+    ],
+    faq: [
+      { q: "Can I make an image bigger?", a: "You can, but enlarging invents pixels that were never captured, so the result looks soft. Going down in size is always cleaner than going up." },
+      { q: "What size should a web image be?", a: "1920 pixels wide is plenty for a full-width banner. Anything inside an article rarely needs more than 1080." },
+    ],
   },
   {
     id: "image-converter",
@@ -198,6 +247,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 8,
+    about: [
+      { heading: "When to convert", body: "Convert to WebP to cut page weight, to JPG when something old needs to open the file, and to PNG when you need lossless quality or a screenshot to stay crisp." },
+      { heading: "What happens to transparency", body: "JPG has no transparency. Converting a transparent PNG to JPG flattens it onto white, which is usually what you want for a photo and rarely what you want for a logo — keep logos as PNG or WebP." },
+    ],
+    faq: [
+      { q: "Does converting lose quality?", a: "Converting to PNG does not. Converting to JPG or WebP re-encodes the image, so some detail is lost — the quality slider controls how much." },
+      { q: "Is WebP safe to use?", a: "Yes. Every current browser supports it. Keep a JPG copy only if you need to support software from before 2020." },
+    ],
   },
   {
     id: "image-cropper",
@@ -210,6 +267,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 9,
+    about: [
+      { heading: "Cropping with intent", body: "Drag the corners to choose the area you want, or lock an aspect ratio first so the crop matches where it is going — 1:1 for a profile picture, 16:9 for a video thumbnail, 4:3 for print." },
+      { heading: "Cropping is not resizing", body: "Cropping cuts pixels away at the edges. Resizing changes the whole image. Crop first to get the framing right, then resize if the result is still larger than you need." },
+    ],
+    faq: [
+      { q: "What size will the result be?", a: "The button shows the exact pixel dimensions of your current selection before you commit to it." },
+      { q: "Is the original affected?", a: "No. You download a new cropped file and the original stays as it was." },
+    ],
   },
   {
     id: "image-metadata",
@@ -222,6 +287,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 10,
+    about: [
+      { heading: "What EXIF holds", body: "Cameras and phones write a block of data into the file: the model, the lens, exposure, ISO, the date, and often the exact GPS coordinates where the photo was taken. That data travels with the file when you send it." },
+      { heading: "Why it is worth checking", body: "Sharing an original photo can reveal where you live or work without you realising. Most social networks strip this on upload, but files sent directly — by email, or as a document attachment — usually keep it." },
+    ],
+    faq: [
+      { q: "My image shows no metadata. Is that a problem?", a: "No, it is normal and usually good. Screenshots have none, and most apps strip it when they save or share." },
+      { q: "Can this remove the metadata?", a: "Not yet — it only shows you what is there. Re-saving a photo through the Image Converter drops most of it as a side effect." },
+    ],
   },
 
   /* ---------------------------------------------------------- DEVELOPER */
@@ -238,6 +311,15 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 11,
+    about: [
+      { heading: "Formatting and validating together", body: "Indenting JSON makes its structure visible. Parsing it properly also proves it is valid — if it formats, it is well-formed, and if it is not, you get the line and column where the parser gave up." },
+      { heading: "Reading the error", body: "Most JSON errors are a trailing comma, a missing quote, or single quotes where double quotes are required. The message points at the character position, and the offending line is shown underneath it." },
+    ],
+    faq: [
+      { q: "Is my data sent anywhere?", a: "No. Parsing happens in your browser with the built-in JSON engine — nothing is transmitted or logged." },
+      { q: "Why does my JSON fail when it looks fine?", a: "JSON is stricter than JavaScript. No trailing commas, no comments, no single-quoted strings, and keys must be in double quotes." },
+      { q: "What is the difference between format and minify?", a: "Format adds indentation for humans. Minify strips every optional space for machines — same data, smaller file." },
+    ],
   },
   {
     id: "json-minifier",
@@ -250,6 +332,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 12,
+    about: [
+      { heading: "Why minify", body: "Whitespace in JSON is for people, not parsers. Removing it shrinks API payloads and config files with no change in meaning, which matters when the same response is sent thousands of times." },
+      { heading: "What it does not change", body: "Minifying never alters your data — only the formatting between values. Run it back through the formatter and you get the original structure." },
+    ],
+    faq: [
+      { q: "How much smaller will it get?", a: "Indented JSON usually shrinks by 20 to 50 percent. The tool shows the before, after and percentage saved." },
+      { q: "Is minified JSON still valid?", a: "Yes. Any parser reads it identically." },
+    ],
   },
   {
     id: "base64",
@@ -262,6 +352,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 13,
+    about: [
+      { heading: "What Base64 is for", body: "Base64 rewrites data using only letters, digits and a couple of symbols, so it can travel safely through systems that expect text — email bodies, JSON fields, data URLs and HTTP headers." },
+      { heading: "It is not encryption", body: "Base64 is an encoding, not a cipher. Anyone can decode it in seconds. Never use it to protect a password, a token or anything private." },
+    ],
+    faq: [
+      { q: "Why did my decode fail?", a: "The input is not valid Base64 — usually a stray space, a missing character, or padding that was trimmed when it was copied." },
+      { q: "Does it handle emoji and accents?", a: "Yes. Text is converted through UTF-8 first, so £, café and emoji all round-trip correctly. Many Base64 tools break on these." },
+    ],
   },
   {
     id: "uuid-generator",
@@ -274,6 +372,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 14,
+    about: [
+      { heading: "What a UUID is", body: "A 128-bit identifier written as 32 hexadecimal characters in five groups. Version 4 UUIDs are almost entirely random, which means two systems can create them independently and effectively never collide." },
+      { heading: "Where they are used", body: "Database primary keys, request and trace identifiers, idempotency keys, file names — anywhere you need a unique value without asking a central service for one." },
+    ],
+    faq: [
+      { q: "Are these random enough to rely on?", a: "Yes. They come from the browser cryptographic random number generator, not Math.random, which is what makes collisions negligible." },
+      { q: "Should I use a UUID as a database key?", a: "It is convenient and avoids coordination, but random keys can fragment indexes on large tables. Worth checking against your workload before committing." },
+    ],
   },
   {
     id: "timestamp",
@@ -286,6 +392,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 15,
+    about: [
+      { heading: "What a Unix timestamp is", body: "The number of seconds since 1 January 1970 UTC. It is a single number with no timezone attached, which is exactly why systems store time that way — the ambiguity is added only when it is displayed." },
+      { heading: "Seconds or milliseconds", body: "Unix tools and most APIs use seconds. JavaScript uses milliseconds. A timestamp that decodes to 1970 usually means milliseconds were read as seconds, so switch the unit." },
+    ],
+    faq: [
+      { q: "Why does the local time differ from UTC?", a: "Local time applies your machine timezone and any daylight saving. Both are shown so you can see the offset." },
+      { q: "What is ISO 8601?", a: "The unambiguous text format, like 2026-01-31T14:05:00.000Z. The trailing Z means UTC. It is the safest format for storing or transmitting a date as text." },
+    ],
   },
 
   /* ----------------------------------------------------------------- QR */
@@ -302,6 +416,15 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 16,
+    about: [
+      { heading: "What goes in a QR code", body: "A QR code is just text. Prefixing it in the right way tells the phone what to do with it — a URL opens a browser, a tel: opens the dialler, and a WIFI: block offers to join a network." },
+      { heading: "Making one that actually scans", body: "Keep the content short, print it large enough, and leave the white border around it — that quiet zone is part of the specification, not decoration. Test with a real phone before printing a thousand of them." },
+    ],
+    faq: [
+      { q: "Does the QR code expire?", a: "No. The content is encoded in the pattern itself, so it works forever and does not depend on this site. Only a shortened link inside it could ever break." },
+      { q: "How does the Wi-Fi one work?", a: "It encodes the network name, security type and password in the standard format. Phone cameras recognise it and offer to join without typing the password." },
+      { q: "What size should I download?", a: "512 pixels is fine for screens. Use 1024 for print, and scale it to at least 2cm across on paper." },
+    ],
   },
 
   /* --------------------------------------------------- EVERYDAY / OTHER */
@@ -317,6 +440,15 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 17,
+    about: [
+      { heading: "What makes a password strong", body: "Length, more than anything. Each extra character multiplies the number of possibilities, which beats swapping letters for symbols. A long password from a mix of character types is far harder to crack than a short complicated one." },
+      { heading: "How these are generated", body: "Characters come from the browser cryptographic random number generator, and the selection avoids modulo bias so every character really is equally likely. At least one character from each type you tick is guaranteed, then the result is shuffled." },
+    ],
+    faq: [
+      { q: "Is the password sent anywhere?", a: "No. It is created in your browser, never transmitted, and never stored. Closing the tab destroys it." },
+      { q: "How long should it be?", a: "Sixteen characters is a sensible floor and twenty or more is better for anything important. Length costs you nothing when a password manager is doing the typing." },
+      { q: "Why does the strength rating change?", a: "It is calculated from entropy — length combined with how many character types are in play — not from a list of rules." },
+    ],
   },
   {
     id: "word-counter",
@@ -330,6 +462,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 18,
+    about: [
+      { heading: "What is counted", body: "Words are runs of characters separated by whitespace. Sentences are split on full stops, question marks and exclamation marks. Paragraphs are blocks separated by a blank line. Everything updates as you type." },
+      { heading: "Reading time", body: "Estimated at about 225 words per minute, which is typical adult silent reading. Technical material reads slower, so treat it as a floor rather than a promise." },
+    ],
+    faq: [
+      { q: "Does it count characters with or without spaces?", a: "Both are shown. Application forms and social limits usually mean with spaces, which is the larger of the two." },
+      { q: "Is my text uploaded?", a: "No. Counting happens in your browser as you type and nothing is sent or saved." },
+    ],
   },
   {
     id: "percentage-calculator",
@@ -343,6 +483,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 19,
+    about: [
+      { heading: "The three questions people actually ask", body: "What is X percent of Y, for discounts and tips. X is what percent of Y, for scores and shares. And how much something changed between two numbers, for growth and price rises." },
+      { heading: "Percentage change catches people out", body: "Going up 50 percent then down 50 percent does not return you to the start. The second percentage applies to the new, larger number — which is why a 50 percent rise followed by a 50 percent fall leaves you 25 percent down." },
+    ],
+    faq: [
+      { q: "How do I work out a discount?", a: "Use the first mode to find the discount amount, then subtract it. For 20 percent off 4,500, the discount is 900 and you pay 3,600." },
+      { q: "Why is the increase mode blank?", a: "The starting value cannot be zero — there is no meaningful percentage change from nothing." },
+    ],
   },
   {
     id: "age-calculator",
@@ -355,6 +503,14 @@ export const TOOLS: Tool[] = [
     status: "live",
     localProcessing: true,
     addedAt: 20,
+    about: [
+      { heading: "Getting age right", body: "Age is not days divided by 365. This counts calendar years, then whole months, then the days left over, borrowing the real length of each month so February and leap years come out correctly." },
+      { heading: "Any two dates", body: "Leave the second date as today for a current age, or change it to work out how old someone will be at a wedding, a deadline, or on a specific school cut-off date." },
+    ],
+    faq: [
+      { q: "Does it handle leap years?", a: "Yes. Someone born on 29 February 2000 is 23 on 28 February 2024 and turns 24 the next day." },
+      { q: "What is the total days figure?", a: "The exact number of days between the two dates, which is often what forms and visa applications actually ask for." },
+    ],
   },
 
   /* ------------------------------------------------------------- HEALTH */
