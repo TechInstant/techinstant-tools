@@ -3,6 +3,7 @@
 import { AlertTriangle } from "lucide-react";
 import { Checklist, type ChecklistSection } from "@/components/tools/checklist";
 import { HealthNotice } from "@/components/tools/health-notice";
+import { PostpartumCalendar } from "@/components/tools/postpartum-calendar";
 
 const SECTIONS: ChecklistSection[] = [
   {
@@ -67,7 +68,14 @@ export default function PostpartumGuide() {
         </p>
       </div>
 
-      <Checklist sections={SECTIONS} printTitle="Postpartum recovery checklist" />
+      <PostpartumCalendar />
+
+      <Checklist
+        sections={SECTIONS}
+        printTitle="Postpartum recovery checklist"
+        allowCustom
+        customTitle="Your own reminders"
+      />
 
       <HealthNotice extra="Recovery timelines differ enormously, particularly after a caesarean or a difficult birth." />
     </div>

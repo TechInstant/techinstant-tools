@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { Check, Printer, RotateCcw } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Check, Printer, RotateCcw, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { ToolPanel, CopyButton } from "@/components/tools/tool-ui";
 import { cn } from "@/lib/utils";
 
@@ -26,18 +27,68 @@ export interface ChecklistSection {
  * for the health checklists where the ticks themselves are personal.
  */
 export function Checklist({
-  sections,
+  sections: baseSections,
   printTitle,
+  allowCustom = false,
+  customTitle = "Your own items",
+  onSelectionChange,
 }: {
   sections: ChecklistSection[];
   printTitle: string;
+  /** Adds a section people can append their own items to. */
+  allowCustom?: boolean;
+  customTitle?: string;
+  /** Receives the ticked labels, for tools that act on the selection. */
+  onSelectionChange?: (labels: string[]) => void;
 }) {
   const [done, setDone] = useState<Set<string>>(new Set());
+  const [custom, setCustom] = useState<string[]>([]);
+  const [draft, setDraft] = useState("");
+
+  const sections = useMemo<ChecklistSection[]>(
+    () =>
+      allowCustom
+        ? [...baseSections, { title: customTitle, items: custom.map((label) => ({ label })) }]
+        : baseSections,
+    [baseSections, allowCustom, customTitle, custom]
+  );
+
+  const addCustom = () => {
+    const label = draft.trim();
+    if (!label) return;
+    /* Silently ignoring a duplicate would look broken, so keep the draft. */
+    if (custom.some((c) => c.toLowerCase() === label.toLowerCase())) return;
+    setCustom((c) => [...c, label]);
+    setDraft("");
+  };
+
+  const removeCustom = (label: string) => {
+    setCustom((c) => c.filter((x) => x !== label));
+    setDone((prev) => {
+      const next = new Set(prev);
+      next.delete(`${customTitle}::${label}`);
+      return next;
+    });
+  };
 
   const total = useMemo(
     () => sections.reduce((n, s) => n + s.items.length, 0),
     [sections]
   );
+
+  /* Ticked labels in list order, so a consumer gets them the way they read on
+     the page rather than in click order. */
+  const selected = useMemo(
+    () =>
+      sections.flatMap((s) =>
+        s.items.filter((i) => done.has(`${s.title}::${i.label}`)).map((i) => i.label)
+      ),
+    [sections, done]
+  );
+
+  useEffect(() => {
+    onSelectionChange?.(selected);
+  }, [selected, onSelectionChange]);
   const completed = done.size;
   const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
 
@@ -99,7 +150,9 @@ export function Checklist({
         </div>
       </ToolPanel>
 
-      {sections.map((section) => (
+      {sections.map((section) => {
+        const isCustom = allowCustom && section.title === customTitle;
+        return (
         <ToolPanel key={section.title}>
           <h2 className="text-base font-bold tracking-tight text-foreground">
             {section.title}
@@ -109,16 +162,22 @@ export function Checklist({
               {section.intro}
             </p>
           )}
+          {isCustom && section.items.length === 0 && (
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+              Anything this list has missed — add it here and it joins your
+              progress, your copied text and your printout.
+            </p>
+          )}
 
           <ul className="mt-4 space-y-1.5">
             {section.items.map((item) => {
               const key = `${section.title}::${item.label}`;
               const checked = done.has(key);
               return (
-                <li key={key}>
+                <li key={key} className={isCustom ? "flex items-center gap-1" : undefined}>
                   <label
                     className={cn(
-                      "flex min-h-11 cursor-pointer items-start gap-3 rounded-lg px-3 py-2.5 transition-colors",
+                      "flex min-h-11 flex-1 cursor-pointer items-start gap-3 rounded-lg px-3 py-2.5 transition-colors",
                       checked ? "bg-brand/5" : "hover:bg-muted/60",
                       item.urgent && "border border-amber-500/30 bg-amber-500/5"
                     )}
@@ -157,12 +216,44 @@ export function Checklist({
                       )}
                     </span>
                   </label>
+                  {isCustom && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label={`Remove ${item.label}`}
+                      onClick={() => removeCustom(item.label)}
+                    >
+                      <X />
+                    </Button>
+                  )}
                 </li>
               );
             })}
           </ul>
+
+          {isCustom && (
+            <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+              <Input
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addCustom();
+                  }
+                }}
+                placeholder="Type an item…"
+                aria-label="New checklist item"
+              />
+              <Button variant="outline" onClick={addCustom} disabled={!draft.trim()}>
+                <Plus />
+                Add item
+              </Button>
+            </div>
+          )}
         </ToolPanel>
-      ))}
+        );
+      })}
     </div>
   );
 }

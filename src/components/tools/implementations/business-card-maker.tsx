@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Download, Loader2 } from "lucide-react";
+import { Download, Loader2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input, Select } from "@/components/ui/input";
 import { ToolPanel, Field, ErrorNote } from "@/components/tools/tool-ui";
-import { downloadBlob } from "@/components/tools/file-drop";
+import { downloadBlob, openBlobPreview } from "@/components/tools/file-drop";
 
 /* A standard card is 3.5 × 2 inches. Drawing at 300 DPI (1050 × 600) with a
    3mm bleed-free edge gives a file a print shop will accept, and the preview
@@ -91,7 +91,7 @@ export default function BusinessCardMaker() {
   const [website, setWebsite] = useState("northline.studio");
   const [address, setAddress] = useState("");
   const [themeId, setThemeId] = useState("slate");
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState("");
 
   const draw = useCallback(() => {
@@ -170,34 +170,45 @@ export default function BusinessCardMaker() {
     }, "image/png");
   };
 
-  const savePdf = async () => {
+  const buildPdfBytes = async () => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    setBusy(true);
+    if (!canvas) throw new Error("no canvas");
+    const dataUrl = canvas.toDataURL("image/png");
+    const bytes = Uint8Array.from(atob(dataUrl.split(",")[1]), (ch) => ch.charCodeAt(0));
+
+    const { PDFDocument } = await import("pdf-lib");
+    const doc = await PDFDocument.create();
+    /* Page is the card itself, in points: 3.5in × 2in = 252 × 144. */
+    const page = doc.addPage([252, 144]);
+    const png = await doc.embedPng(bytes);
+    page.drawImage(png, { x: 0, y: 0, width: 252, height: 144 });
+    return (await doc.save()) as unknown as BlobPart;
+  };
+
+  const savePdf = async () => {
+    setBusy("pdf");
     setError("");
     try {
-      const dataUrl = canvas.toDataURL("image/png");
-      const bytes = Uint8Array.from(atob(dataUrl.split(",")[1]), (ch) =>
-        ch.charCodeAt(0)
-      );
-
-      const { PDFDocument } = await import("pdf-lib");
-      const doc = await PDFDocument.create();
-      /* Page is the card itself, in points: 3.5in × 2in = 252 × 144. */
-      const page = doc.addPage([252, 144]);
-      const png = await doc.embedPng(bytes);
-      page.drawImage(png, { x: 0, y: 0, width: 252, height: 144 });
-      const out = await doc.save();
-      downloadBlob(
-        out as unknown as BlobPart,
-        "business-card.pdf",
-        "application/pdf"
-      );
+      downloadBlob(await buildPdfBytes(), "business-card.pdf", "application/pdf");
     } catch {
       setError("Something went wrong while building the PDF. Please try again.");
     } finally {
-      setBusy(false);
+      setBusy(null);
     }
+  };
+
+  const previewPdf = async () => {
+    setBusy("preview");
+    setError("");
+    const outcome = await openBlobPreview(buildPdfBytes, "application/pdf");
+    if (outcome === "blocked") {
+      setError(
+        "Your browser blocked the preview tab. Allow pop-ups for this site, or just download the PDF instead."
+      );
+    } else if (outcome === "failed") {
+      setError("The preview could not be created. Please try again.");
+    }
+    setBusy(null);
   };
 
   return (
@@ -283,13 +294,25 @@ export default function BusinessCardMaker() {
       {error && <ErrorNote>{error}</ErrorNote>}
 
       <div className="flex flex-wrap gap-2">
-        <Button onClick={savePng}>
+        <Button onClick={savePng} disabled={busy !== null}>
           <Download />
           Download PNG
         </Button>
-        <Button variant="outline" onClick={savePdf} disabled={busy}>
-          {busy ? <Loader2 className="animate-spin" /> : <Download />}
-          {busy ? "Building…" : "Download print PDF"}
+        <Button variant="outline" onClick={() => void savePdf()} disabled={busy !== null}>
+          {busy === "pdf" ? <Loader2 className="animate-spin" /> : <Download />}
+          {busy === "pdf" ? "Building…" : "Download print PDF"}
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => void previewPdf()}
+          disabled={busy !== null}
+        >
+          {busy === "preview" ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            <ExternalLink />
+          )}
+          Preview in new tab
         </Button>
       </div>
     </div>

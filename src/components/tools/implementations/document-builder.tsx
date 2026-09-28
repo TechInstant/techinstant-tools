@@ -3,33 +3,13 @@
 import { useMemo, useState } from "react";
 import { Plus, Trash2, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input, Textarea } from "@/components/ui/input";
+import { Input, Textarea, Select } from "@/components/ui/input";
 import { ToolPanel, Field, ErrorNote } from "@/components/tools/tool-ui";
 import { downloadBlob } from "@/components/tools/file-drop";
 import { todayValue, fromInputValue } from "@/lib/date";
+import { CURRENCIES, getCurrency, formatMoney } from "@/lib/currency";
 
 export type DocKind = "invoice" | "receipt";
-
-/**
- * pdf-lib's standard fonts are WinAnsi only, so a symbol outside that set would
- * either throw or vanish from the PDF while still showing on screen. These are
- * the common currencies WinAnsi cannot draw; each falls back to its ISO code so
- * the document still says what the money is.
- */
-const CURRENCY_FALLBACK: Record<string, string> = {
-  "₦": "NGN",
-  "₵": "GHS",
-  "₹": "INR",
-  "₩": "KRW",
-  "₽": "RUB",
-  "₺": "TRY",
-  "₪": "ILS",
-  "₫": "VND",
-  "₱": "PHP",
-  "₴": "UAH",
-  "₸": "KZT",
-  "﷼": "SAR",
-};
 
 interface Line {
   id: number;
@@ -40,18 +20,6 @@ interface Line {
 
 let nextId = 1;
 const blankLine = (): Line => ({ id: nextId++, description: "", qty: "1", price: "" });
-
-const money = (n: number, symbol: string) =>
-  `${symbol}${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-
-/** The symbol as it can actually be printed, falling back to an ISO code. */
-const pdfCurrency = (input: string) => {
-  const trimmed = input.trim();
-  const drawable = trimmed.replace(/[^\x20-\x7E -ÿ]/g, "");
-  if (drawable) return drawable;
-  const code = CURRENCY_FALLBACK[trimmed];
-  return code ? `${code} ` : "";
-};
 
 /** "28 Sep 2026" — clearer on a document than a raw ISO string. */
 const documentDate = (value: string) => {
@@ -78,13 +46,17 @@ export function DocumentBuilder({ kind }: { kind: DocKind }) {
   const [number, setNumber] = useState(isInvoice ? "INV-001" : "REC-001");
   const [date, setDate] = useState(() => todayValue());
   const [due, setDue] = useState("");
-  const [currency, setCurrency] = useState("₦");
+  const [currencyCode, setCurrencyCode] = useState("NGN");
   const [taxRate, setTaxRate] = useState("0");
   const [notes, setNotes] = useState("");
   const [paidWith, setPaidWith] = useState("");
   const [lines, setLines] = useState<Line[]>(() => [blankLine()]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+
+  const currency = getCurrency(currencyCode) ?? CURRENCIES[0];
+  /** On-screen formatting, which can use the real symbol. */
+  const money = (n: number) => formatMoney(n, currency.symbol, currency.code);
 
   const totals = useMemo(() => {
     let subtotal = 0;
@@ -139,7 +111,7 @@ export function DocumentBuilder({ kind }: { kind: DocKind }) {
       /* Anything the standard fonts cannot draw (emoji, non-Latin scripts) is
          stripped rather than allowed to throw. */
       const safe = (s: string) => s.replace(/[^\x20-\x7E -ÿ]/g, "");
-      const sym = pdfCurrency(currency);
+      const pdfMoney = (n: number) => formatMoney(n, currency.pdfSymbol, currency.code);
 
       text(isInvoice ? "INVOICE" : "RECEIPT", M, y, 26, bold, brand);
       text(`No. ${safe(number)}`, 400, y + 4, 10, body, soft);
@@ -184,8 +156,8 @@ export function DocumentBuilder({ kind }: { kind: DocKind }) {
         if (!l.description.trim() && q * p === 0) continue;
         text(safe(l.description).slice(0, 52) || "—", M, y, 10);
         text(String(q), 360, y, 10);
-        text(money(p, sym), 410, y, 10);
-        text(money(q * p, sym), 490, y, 10);
+        text(pdfMoney(p), 410, y, 10);
+        text(pdfMoney(q * p), 490, y, 10);
         y -= 16;
         if (y < 150) break;
       }
@@ -200,15 +172,15 @@ export function DocumentBuilder({ kind }: { kind: DocKind }) {
       y -= 18;
 
       text("Subtotal", 400, y, 10, body, soft);
-      text(money(totals.subtotal, sym), 490, y, 10);
+      text(pdfMoney(totals.subtotal), 490, y, 10);
       y -= 15;
       if (totals.tax > 0) {
         text(`Tax (${taxRate}%)`, 400, y, 10, body, soft);
-        text(money(totals.tax, sym), 490, y, 10);
+        text(pdfMoney(totals.tax), 490, y, 10);
         y -= 15;
       }
       text("TOTAL", 400, y, 12, bold);
-      text(money(totals.total, sym), 490, y, 12, bold, brand);
+      text(pdfMoney(totals.total), 490, y, 12, bold, brand);
       y -= 30;
 
       if (!isInvoice) {
@@ -283,17 +255,22 @@ export function DocumentBuilder({ kind }: { kind: DocKind }) {
             label="Currency"
             htmlFor="db-cur"
             hint={
-              pdfCurrency(currency).trim() !== currency.trim()
-                ? `Prints as “${pdfCurrency(currency).trim() || "no symbol"}” in the PDF.`
+              currency.pdfSymbol.trim() !== currency.symbol.trim()
+                ? `Prints as “${currency.pdfSymbol.trim()}” in the PDF — the standard PDF fonts have no ${currency.symbol} glyph.`
                 : undefined
             }
           >
-            <Input
+            <Select
               id="db-cur"
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value)}
-              placeholder="NGN"
-            />
+              value={currencyCode}
+              onChange={(e) => setCurrencyCode(e.target.value)}
+            >
+              {CURRENCIES.map((x) => (
+                <option key={x.code} value={x.code}>
+                  {x.code} — {x.name} ({x.symbol.trim()})
+                </option>
+              ))}
+            </Select>
           </Field>
         </div>
       </ToolPanel>
@@ -337,7 +314,7 @@ export function DocumentBuilder({ kind }: { kind: DocKind }) {
                   aria-label="Unit price"
                 />
                 <div className="flex h-11 items-center px-1 font-medium tabular-nums text-foreground">
-                  {money(amount, currency)}
+                  {money(amount)}
                 </div>
                 <Button
                   variant="ghost"
@@ -373,14 +350,12 @@ export function DocumentBuilder({ kind }: { kind: DocKind }) {
         </div>
 
         <div className="rounded-lg bg-background-subtle p-4">
-          <Row label="Subtotal" value={money(totals.subtotal, currency)} />
-          {totals.tax > 0 && (
-            <Row label={`Tax (${taxRate}%)`} value={money(totals.tax, currency)} />
-          )}
+          <Row label="Subtotal" value={money(totals.subtotal)} />
+          {totals.tax > 0 && <Row label={`Tax (${taxRate}%)`} value={money(totals.tax)} />}
           <div className="mt-2 flex items-center justify-between border-t border-border pt-2">
             <span className="font-bold text-foreground">Total</span>
             <span className="text-xl font-extrabold tabular-nums text-brand">
-              {money(totals.total, currency)}
+              {money(totals.total)}
             </span>
           </div>
         </div>

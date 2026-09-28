@@ -123,6 +123,18 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
     { loading }
   ),
 
+  "ovulation-calculator": dynamic(
+    () => import("./implementations/ovulation-calculator"),
+    { loading }
+  ),
+  "water-intake-calculator": dynamic(
+    () => import("./implementations/water-intake-calculator"),
+    { loading }
+  ),
+  "calorie-calculator": dynamic(() => import("./implementations/calorie-calculator"), {
+    loading,
+  }),
+
   /* Business documents — invoice and receipt share one engine. */
   "invoice-generator": dynamic(() => import("./implementations/invoice-generator"), {
     loading,
@@ -144,6 +156,41 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
     () => import("./implementations/ip-location-checker"),
     { loading }
   ),
+
+  /* Web batch. */
+  "slug-generator": dynamic(() => import("./implementations/slug-generator"), {
+    loading,
+  }),
+  "color-contrast-checker": dynamic(
+    () => import("./implementations/color-contrast-checker"),
+    { loading }
+  ),
+  "favicon-generator": dynamic(() => import("./implementations/favicon-generator"), {
+    loading,
+  }),
+  "lorem-ipsum-generator": dynamic(
+    () => import("./implementations/lorem-ipsum-generator"),
+    { loading }
+  ),
+  "url-encoder": dynamic(() => import("./implementations/url-encoder"), { loading }),
+  "robots-txt-generator": dynamic(
+    () => import("./implementations/robots-txt-generator"),
+    { loading }
+  ),
+
+  /* Study aids. */
+  "study-timer": dynamic(() => import("./implementations/study-timer"), { loading }),
+  "random-picker": dynamic(() => import("./implementations/random-picker"), {
+    loading,
+  }),
+
+  /* AI — prompt writing aids. No model is called from either of these. */
+  "prompt-generator": dynamic(() => import("./implementations/prompt-generator"), {
+    loading,
+  }),
+  "prompt-library": dynamic(() => import("./implementations/prompt-library"), {
+    loading,
+  }),
 };
 
 export function getToolComponent(slug: string): ComponentType | null {

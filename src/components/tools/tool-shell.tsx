@@ -4,6 +4,7 @@ import { getCategory } from "@/lib/categories";
 import { type Tool, toolsByCategory } from "@/lib/tools";
 import { LOCAL_PROCESSING_NOTE } from "@/lib/site";
 import { ToolCard } from "@/components/tools/tool-card";
+import { ShareRow } from "@/components/tools/share-row";
 import { cn } from "@/lib/utils";
 
 const STEPS = [
@@ -149,6 +150,11 @@ export function ToolShell({
           </div>
         </section>
       )}
+
+      {/* share — on every tool, so nobody has to copy the URL by hand */}
+      <section className="mt-12">
+        <ShareRow title={tool.name} text={tool.description} />
+      </section>
 
       {/* related */}
       {related.length > 0 && (

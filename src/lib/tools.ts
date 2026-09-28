@@ -37,6 +37,18 @@ import {
   CreditCard,
   Award,
   MapPin,
+  Egg,
+  Flame,
+  Link2,
+  Link,
+  Contrast,
+  AppWindow,
+  AlignLeft,
+  Bot,
+  Timer,
+  Shuffle,
+  Sparkles,
+  Library,
 } from "lucide-react";
 import type { CategoryId } from "./categories";
 
@@ -959,17 +971,27 @@ export const TOOLS: Tool[] = [
     id: "pregnancy-shopping-list",
     name: "Pregnancy Shopping List",
     slug: "pregnancy-shopping-list",
-    description: "Essential items to prepare for your pregnancy and baby arrival.",
+    description: "Trimester-by-trimester checklist of what to buy before the baby arrives.",
     category: "health",
     icon: ShoppingBasket,
-    tags: ["pregnancy", "baby", "shopping list", "hospital bag", "newborn", "checklist"],
+    tags: [
+      "pregnancy",
+      "baby",
+      "shopping list",
+      "hospital bag",
+      "newborn",
+      "checklist",
+      "trimester",
+      "registry",
+    ],
+    popular: true,
     isNew: true,
     status: "live",
     localProcessing: true,
     addedAt: 32,
-    seoTitle: "Pregnancy & Newborn Shopping List — Printable Checklist",
+    seoTitle: "Pregnancy Shopping List — Trimester Checklist You Can Print",
     seoDescription:
-      "A practical checklist of what you actually need before the baby arrives, from the hospital bag to sleeping, feeding and changing. Tick, copy or print it.",
+      "What you actually need in each trimester, plus the hospital bag and newborn essentials. Add your own items, tick, print, share, and search any store for what is left.",
     about: [
       {
         heading: "Why most baby lists are too long",
@@ -977,7 +999,7 @@ export const TOOLS: Tool[] = [
       },
       {
         heading: "How to use it",
-        body: "Tick what you already have or have been given, then buy in that order: sleeping, feeding, changing, car seat, everything else. Pack the hospital bag section around 34 weeks. You can copy the list as text or print it to take shopping.",
+        body: "It is grouped by trimester, so you only look at what is relevant now. Tick what you already have or have been given, add anything the list has missed, then pack the hospital bag section around 34 weeks. Copy it as text, print it to take shopping, or open a store search for everything still ticked.",
       },
       {
         heading: "Second-hand, with two exceptions",
@@ -998,8 +1020,163 @@ export const TOOLS: Tool[] = [
         a: "Maternity pads in enough quantity, a long phone charging cable for the hospital, a nightlight for feeds, and meals in the freezer. The last one is the most appreciated.",
       },
       {
+        q: "Can I add my own items?",
+        a: "Yes. Anything you add joins your progress count, the text you copy and the printout, so the list ends up being yours rather than ours.",
+      },
+      {
+        q: "How do the shopping links work?",
+        a: "Pick Jumia or Amazon and each ticked item becomes an ordinary search link, assembled in your browser at the moment you click it. Your list is never sent to a retailer or to us, and we cannot see what you buy.",
+      },
+      {
         q: "Can I print or share the list?",
-        a: "Yes. Print it, or copy it as plain text to paste into a message or notes app. Nothing you tick is saved or sent anywhere.",
+        a: "Both. Print it, copy it as plain text, or share the page by WhatsApp, Facebook, X or email. Sharing sends the page link only — never what you have ticked.",
+      },
+    ],
+  },
+
+  {
+    id: "ovulation-calculator",
+    name: "Ovulation Calculator",
+    slug: "ovulation-calculator",
+    description: "Find your fertile window and estimated ovulation day.",
+    category: "health",
+    icon: Egg,
+    tags: ["ovulation", "fertile window", "conception", "ttc", "cycle", "fertility"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 38,
+    seoTitle: "Ovulation Calculator — Fertile Window & Ovulation Day",
+    seoDescription:
+      "Estimate your ovulation day and fertile window from your cycle length and luteal phase. Private, works in your browser, nothing saved.",
+    about: [
+      {
+        heading: "Why it counts backwards, not forwards",
+        body: "The familiar “day 14” rule only holds for a textbook 28-day cycle. The luteal phase — ovulation to the next period — is much more consistent between people than the first half of the cycle, so counting back from your next expected period is more reliable than counting forward from your last one.",
+      },
+      {
+        heading: "How to use it",
+        body: "Enter the first day of your last period and your usual cycle length. Leave the luteal phase at 14 unless you have tracked it with temperature or tests. You get the estimated ovulation day, the fertile window around it, and the next three cycles.",
+      },
+      {
+        heading: "What the fertile window means",
+        body: "Sperm can survive around five days and the egg about a day, which is why the window opens before ovulation rather than on it. The two days before ovulation are usually the highest chance.",
+      },
+    ],
+    faq: [
+      {
+        q: "How accurate is this?",
+        a: "It is arithmetic on averages, not a measurement. Ovulation moves with stress, illness, travel and poor sleep, and counting days cannot tell you whether you actually ovulated. Ovulation tests, basal temperature or a scan can.",
+      },
+      {
+        q: "Can I use this as contraception?",
+        a: "No. Please do not. The window is an estimate and cycles vary month to month even when nothing is wrong. Speak to a pharmacist or doctor about contraception.",
+      },
+      {
+        q: "My cycles are irregular — will it work?",
+        a: "Much less well, and the more they vary the less the estimate means. If your cycles are consistently irregular it is worth raising with a doctor, as it often has a treatable cause.",
+      },
+      {
+        q: "Is what I enter stored?",
+        a: "No. The dates stay in the browser tab and are gone when you close it. Nothing is sent to a server or written to storage.",
+      },
+    ],
+  },
+  {
+    id: "water-intake-calculator",
+    name: "Water Intake Calculator",
+    slug: "water-intake-calculator",
+    description: "Work out roughly how much fluid to drink each day.",
+    category: "health",
+    icon: Droplets,
+    tags: ["water", "hydration", "fluid", "drink", "litres", "health"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 39,
+    seoTitle: "Water Intake Calculator — Daily Fluid Needs",
+    seoDescription:
+      "Estimate your daily fluid target from weight, activity level and climate, in litres, millilitres, fluid ounces or glasses.",
+    about: [
+      {
+        heading: "Where the number comes from",
+        body: "Around 30 to 35 ml per kilogram of body weight is the usual starting point for a healthy adult, with additions for exercise, heat and for pregnancy or breastfeeding. That is the calculation here, and every part of it is shown so you can see what is being added.",
+      },
+      {
+        heading: "How to use it",
+        body: "Enter your weight and pick your activity level and climate. The result counts all fluid, not just plain water — tea, coffee, milk and soup all contribute, and food supplies roughly a fifth of most people's intake on top.",
+      },
+      {
+        heading: "A better guide than any calculator",
+        body: "Thirst, and urine the colour of pale straw. If you are rarely thirsty and it is consistently pale, you are drinking enough, whatever the arithmetic says.",
+      },
+    ],
+    faq: [
+      {
+        q: "Is it really eight glasses a day?",
+        a: "That figure has no strong evidence behind it. Needs vary with body size, activity, heat and diet, which is why this asks about those rather than giving everyone the same answer.",
+      },
+      {
+        q: "Does coffee count?",
+        a: "Yes. The idea that caffeine dehydrates you does not hold at normal intakes — the fluid in a cup of coffee or tea more than covers its mild diuretic effect.",
+      },
+      {
+        q: "Can you drink too much water?",
+        a: "Yes, though it is uncommon. Drinking far more than you need over a short period can dangerously dilute blood sodium. Spread intake across the day rather than forcing large amounts at once.",
+      },
+      {
+        q: "I have been told to limit fluids — should I use this?",
+        a: "No. Kidney and heart conditions, and some medications, make a fixed target actively unsafe. Follow the limit you were given.",
+      },
+    ],
+  },
+  {
+    id: "calorie-calculator",
+    name: "Calorie & TDEE Calculator",
+    slug: "calorie-calculator",
+    description: "Find your BMR and daily calorie needs for your goal.",
+    category: "health",
+    icon: Flame,
+    tags: ["calories", "bmr", "tdee", "metabolism", "weight", "macros", "diet"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 40,
+    seoTitle: "Calorie & TDEE Calculator — BMR, Maintenance and Goals",
+    seoDescription:
+      "Calculate BMR with the Mifflin–St Jeor equation, your total daily energy expenditure, and calorie targets for losing or gaining weight.",
+    about: [
+      {
+        heading: "BMR and TDEE are not the same number",
+        body: "BMR is what your body uses at complete rest just staying alive. TDEE is that figure scaled for how much you actually move, and it is the one to eat to if you want to stay the same weight. Eating at BMR is a large deficit for almost everyone, which is a common and unhelpful mistake.",
+      },
+      {
+        heading: "How to use it",
+        body: "Enter age, height, weight and how active you genuinely are — most people overestimate this, so if in doubt pick the level below. You get BMR, maintenance calories, targets for losing or gaining, and an example macro split.",
+      },
+      {
+        heading: "Which equation this uses",
+        body: "Mifflin–St Jeor, which tracks measured resting expenditure more closely than the older Harris–Benedict equation. It only has two sex terms, so it cannot represent everyone; that is a limit of the available science rather than a choice made here.",
+      },
+    ],
+    faq: [
+      {
+        q: "How accurate is a calculated BMR?",
+        a: "It can be out by 10% or more for any individual. Body composition, medication and thyroid function all shift it. Treat the number as a starting point, then adjust based on what actually happens over a few weeks.",
+      },
+      {
+        q: "Why is a 500 kcal deficit the usual advice?",
+        a: "Roughly 7,700 kcal is a kilogram of body weight, so around 550 a day works out at about half a kilogram a week. Cutting much harder than that tends to cost muscle and rarely lasts.",
+      },
+      {
+        q: "Are the macros prescriptive?",
+        a: "No — it is one common split of many. Total calories matter far more than the ratio, and there is no single correct division.",
+      },
+      {
+        q: "Can I use this for a child, or during pregnancy?",
+        a: "No. Children, teenagers and pregnancy all need different guidance, and this equation is not valid for them. Ask a doctor or dietitian.",
       },
     ],
   },
@@ -1151,47 +1328,71 @@ export const TOOLS: Tool[] = [
     id: "certificate-generator",
     name: "Certificate Generator",
     slug: "certificate-generator",
-    description: "Create a certificate of completion or achievement as a PDF.",
+    description: "Design certificates with templates, logos, signatures and batch CSV export.",
     category: "business",
     icon: Award,
-    tags: ["certificate", "award", "completion", "training", "pdf", "course"],
+    tags: [
+      "certificate",
+      "award",
+      "completion",
+      "training",
+      "pdf",
+      "course",
+      "batch",
+      "csv",
+      "template",
+      "diploma",
+    ],
+    popular: true,
     isNew: true,
     status: "live",
     localProcessing: true,
     addedAt: 36,
-    seoTitle: "Free Certificate Generator — Certificate of Completion PDF",
+    seoTitle: "Free Certificate Generator — Templates, Logo, Signature & Batch",
     seoDescription:
-      "Make a certificate of completion, achievement or attendance and download it as an A4 landscape PDF. Four colour styles, no sign-up.",
+      "Design a certificate with six templates, your own fonts, colours, logo, signature and QR code. Export PDF, PNG or JPEG, or batch-generate a whole cohort from a CSV into one ZIP.",
     about: [
       {
         heading: "What a certificate needs to say",
-        body: "Who earned it, what they did, who says so, and when. A reference number is worth adding if anyone might need to verify it later — it turns the certificate from a decoration into a record you can look up.",
+        body: "Who earned it, what they did, who says so, and when. A reference number is worth adding if anyone might need to verify it later — it turns the certificate from a decoration into a record you can look up, and the QR code can point straight at that record.",
       },
       {
         heading: "How to use it",
-        body: "Set the title, the recipient's name and what they completed. The organisation's initials appear in the seal, and the name is automatically sized to fit however long it is. Download the A4 landscape PDF and print it, or email it as it is.",
+        body: "Pick one of the six templates, set the wording, then adjust the font, size and colours until it looks like yours. Add a logo, sign with your mouse or upload a scanned signature, and switch the QR code on if you want it verifiable. The preview is the real thing at full resolution, so what you see is exactly what exports.",
       },
       {
-        heading: "Issuing more than a few",
-        body: "For a whole cohort, keep a simple spreadsheet of names against reference numbers as you go. It takes a minute per certificate and means you can answer “can you confirm this person completed the course?” years later.",
+        heading: "Issuing a whole cohort at once",
+        body: "Batch generation takes a CSV with one row per person and returns every certificate in a single ZIP. Only a Name column is required; Achievement, Reference, Date and Organisation override the settings per row when present, so a mixed list of courses works from one file. Save a preset first and next term's batch takes seconds.",
       },
     ],
     faq: [
       {
         q: "What size is the certificate?",
-        a: "A4 landscape, which prints on standard paper anywhere in the world outside North America. It will also print on US Letter, with slightly larger margins.",
+        a: "A4 landscape at 300 DPI, which prints on standard paper anywhere outside North America and will also print on US Letter with slightly larger margins.",
+      },
+      {
+        q: "Can I add my own logo?",
+        a: "Yes. PNG, JPG, WebP, GIF and SVG all work, and you can place it left, centred or right — or inside the header band on the Corporate template. It is converted in your browser and never uploaded.",
       },
       {
         q: "Can I add a real signature?",
-        a: "The signature line is left blank for you to sign by hand after printing, with the name and role printed beneath it. Signature image upload is not supported yet.",
+        a: "Two ways. Draw one directly with a mouse, trackpad or finger, or photograph a signature on white paper and upload it — the white background is removed automatically so it sits on the page like ink rather than as a grey box.",
+      },
+      {
+        q: "How does batch generation work?",
+        a: "Import a CSV and it renders one certificate per row using the same drawing code as the preview, then bundles them into a ZIP. Everything happens in your browser, so a list of real names never leaves your device — which is the whole point for a class or staff list.",
+      },
+      {
+        q: "Which fonts are available?",
+        a: "Poppins, Playfair Display, Montserrat, Merriweather, Lato and Cormorant Garamond. They are served from this site rather than from Google, so choosing one does not make a third-party request.",
       },
       {
         q: "Will a long name still fit?",
-        a: "Yes. The name is measured and the type size reduced until it fits the page, so it will not run off the edge.",
+        a: "Yes. The name is measured and the type size reduced until it fits the page, so it will not run off the edge however long it is.",
       },
       {
         q: "Is anything sent to a server?",
-        a: "No. The certificate is built in your browser, so recipients' names stay on your device.",
+        a: "No. Rendering, PDF, PNG, JPEG and the ZIP are all built in the browser, so recipients' names stay on your device.",
       },
     ],
   },
@@ -1242,6 +1443,478 @@ export const TOOLS: Tool[] = [
       {
         q: "Can I look up a website instead of an IP?",
         a: "Not directly — the box takes an IP address. A domain has to be resolved to an IP first, which a browser cannot do on its own.",
+      },
+    ],
+  },
+  {
+    id: "slug-generator",
+    name: "Slug Generator",
+    slug: "slug-generator",
+    description: "Turn titles into clean, readable URL slugs.",
+    category: "web",
+    icon: Link2,
+    tags: ["slug", "url", "permalink", "seo", "kebab case", "transliterate"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 41,
+    seoTitle: "URL Slug Generator — Clean Permalinks From Any Title",
+    seoDescription:
+      "Convert titles into safe URL slugs, with accent transliteration, filler-word removal and a length limit. Paste a list to slug them all at once.",
+    about: [
+      {
+        heading: "What makes a good slug",
+        body: "Short, lowercase, hyphen-separated, and still readable as the title. Hyphens rather than underscores, because search engines treat a hyphen as a word break and an underscore as a joiner. And once a slug is published, changing it breaks every link to it — so get it right first.",
+      },
+      {
+        heading: "How to use it",
+        body: "Paste a title and the slug appears. Paste several lines and each gets its own, with repeats numbered so two pages never end up fighting over one URL. Accented letters are transliterated rather than stripped, so “café” becomes “cafe” instead of “caf”.",
+      },
+      {
+        heading: "Filler words",
+        body: "Removing “a”, “the”, “of” and similar shortens a slug without losing meaning, and it is worth doing on a long title. It is off by default because it can also make a slug read oddly, and a slug nobody can read is worse than a slightly long one.",
+      },
+    ],
+    faq: [
+      {
+        q: "Should I use hyphens or underscores?",
+        a: "Hyphens. Google treats a hyphen as a word separator and an underscore as part of the word, so “blue_widget” can be read as one term rather than two.",
+      },
+      {
+        q: "How long should a slug be?",
+        a: "Short enough to read in a search result — around 60 characters is a sensible ceiling. The limit here cuts at a word boundary rather than mid-word.",
+      },
+      {
+        q: "What happens to non-Latin text?",
+        a: "Accented Latin characters are transliterated. Scripts with no Latin equivalent, like Chinese or Arabic, cannot be meaningfully converted, so you will need to supply your own slug for those titles.",
+      },
+    ],
+  },
+  {
+    id: "color-contrast-checker",
+    name: "Colour Contrast Checker",
+    slug: "color-contrast-checker",
+    description: "Check text contrast against WCAG AA and AAA, with a fix suggested.",
+    category: "web",
+    icon: Contrast,
+    tags: ["contrast", "wcag", "accessibility", "a11y", "colour", "color", "ratio"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 42,
+    seoTitle: "Colour Contrast Checker — WCAG AA & AAA Ratio",
+    seoDescription:
+      "Check the contrast ratio between two colours against every WCAG 2.2 level, see it on real text, and get the nearest passing colour.",
+    about: [
+      {
+        heading: "What the ratio means",
+        body: "Contrast ratio compares the relative luminance of two colours, from 1:1 (identical) to 21:1 (black on white). WCAG asks for 4.5:1 for body text, 3:1 for large text and for interface components like borders and icons, and 7:1 for the enhanced AAA level.",
+      },
+      {
+        heading: "How to use it",
+        body: "Set your text and background colours and the ratio updates, shown on real text at three sizes so you can judge it as well as measure it. If it fails, the nearest passing colour in the same hue is offered — lightened or darkened only as far as it has to be.",
+      },
+      {
+        heading: "Where ratios stop helping",
+        body: "A passing ratio can still be hard to read in a thin weight, a decorative typeface or at a small size. Text over a photograph needs checking against its lightest and darkest areas, not an average. And dark mode is a different pair of colours, so check it separately.",
+      },
+    ],
+    faq: [
+      {
+        q: "What counts as large text?",
+        a: "18pt and above, or 14pt and above if it is bold — roughly 24px and 18.66px. Large text only needs 3:1 for AA.",
+      },
+      {
+        q: "Do icons and borders need to pass?",
+        a: "Yes, at 3:1. That is the requirement people most often miss — a pale grey input border or a low-contrast focus ring fails it, and the focus ring in particular matters for anyone navigating by keyboard.",
+      },
+      {
+        q: "Is AAA worth aiming for?",
+        a: "It is a real improvement for anyone with low vision, but it heavily constrains your palette. AA is the level most regulations reference; treat AAA as a goal for body text where you can manage it.",
+      },
+      {
+        q: "Why does your figure differ from another tool's?",
+        a: "Usually because the other tool skipped the sRGB transfer curve when computing luminance. This one follows the WCAG formula, including the 0.03928 branch that trips up hand-rolled implementations.",
+      },
+    ],
+  },
+  {
+    id: "favicon-generator",
+    name: "Favicon Generator",
+    slug: "favicon-generator",
+    description: "Make every favicon size from one image, with the HTML to match.",
+    category: "web",
+    icon: AppWindow,
+    tags: ["favicon", "icon", "apple touch icon", "pwa", "manifest", "png"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 43,
+    seoTitle: "Favicon Generator — Every Size, Plus the HTML and Manifest",
+    seoDescription:
+      "Upload one image and get all six favicon sizes, a web manifest and the head snippet, bundled in a ZIP. Runs entirely in your browser.",
+    about: [
+      {
+        heading: "Which sizes you actually need",
+        body: "Six: 16 and 32 for browser tabs, 48 for Windows shortcuts, 180 for the iOS home screen, and 192 and 512 for Android and PWA installs. The long lists of twenty-odd sizes you sometimes see are catering to browsers nobody uses any more.",
+      },
+      {
+        heading: "How to use it",
+        body: "Drop in a square image, ideally 512×512 or larger. Adjust the crop, padding and corner rounding, check the small sizes in the preview — 16×16 is unforgiving and detail disappears — then download everything as a ZIP with the manifest and head snippet included.",
+      },
+      {
+        heading: "Transparency and dark mode",
+        body: "A transparent icon shows the browser's own tab colour behind it, which can make a dark logo effectively invisible in dark mode. If your mark is one dark colour, give it a solid background rather than relying on transparency.",
+      },
+    ],
+    faq: [
+      {
+        q: "Do I still need a .ico file?",
+        a: "Not for any current browser — PNG favicons are supported everywhere. A root-level favicon.ico is only worth adding if you must support very old Internet Explorer.",
+      },
+      {
+        q: "Why is my old favicon still showing?",
+        a: "Browser caching, not a mistake on your part. Favicons are cached very aggressively. A hard reload, or opening the site in a private window, will show you the real state.",
+      },
+      {
+        q: "Where do the files go?",
+        a: "At the root of your site, so they sit at /favicon-32x32.png and so on. Then paste the head snippet into your HTML.",
+      },
+      {
+        q: "Is my logo uploaded?",
+        a: "No. Every size is rendered on a canvas in your browser and the ZIP is assembled there too, so an unreleased logo never leaves your device.",
+      },
+    ],
+  },
+  {
+    id: "lorem-ipsum-generator",
+    name: "Lorem Ipsum Generator",
+    slug: "lorem-ipsum-generator",
+    description: "Placeholder text in Latin or plain English, with HTML if you want it.",
+    category: "web",
+    icon: AlignLeft,
+    tags: ["lorem ipsum", "placeholder", "dummy text", "filler", "mockup", "design"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 44,
+    seoTitle: "Lorem Ipsum Generator — Latin or Plain English Placeholder Text",
+    seoDescription:
+      "Generate paragraphs, sentences, words or list items of placeholder text, optionally wrapped in HTML tags. Latin or readable English.",
+    about: [
+      {
+        heading: "Why placeholder text at all",
+        body: "Latin filler stops people reading the words and lets them see the layout, which is the whole point during design. The trade-off is that it hides real problems: a heading that only works at four words, or a language that runs 30% longer than English.",
+      },
+      {
+        heading: "How to use it",
+        body: "Pick what you need — paragraphs, sentences, words or list items — and how many. Switch on HTML wrapping to get tags you can paste straight into a template, and use Shuffle for a different arrangement of the same settings.",
+      },
+      {
+        heading: "The plain English option",
+        body: "Latin makes it hard to judge whether a layout reads well, and impossible to show a client. The English filler here is ordinary readable prose with a realistic mix of sentence lengths, which is usually the better choice once a design is being reviewed by anyone else.",
+      },
+    ],
+    faq: [
+      {
+        q: "Does the Latin mean anything?",
+        a: "Not really. It comes from a scrambled passage of Cicero, and it has been deliberately corrupted for centuries, so it reads as Latin without being readable Latin.",
+      },
+      {
+        q: "Why does the text stay the same as I change the count?",
+        a: "The output is generated from a fixed seed so it does not churn on every keystroke. Press Shuffle when you want a genuinely different passage.",
+      },
+      {
+        q: "Should I ship a site with lorem ipsum in it?",
+        a: "No — it gets forgotten and published far more often than anyone expects, and it tells search engines nothing. Replace it before launch, and search your templates for “lorem” as a final check.",
+      },
+    ],
+  },
+  {
+    id: "url-encoder",
+    name: "URL Encoder / Decoder",
+    slug: "url-encoder",
+    description: "Percent-encode or decode URLs, and break one into its parts.",
+    category: "web",
+    icon: Link,
+    tags: ["url", "encode", "decode", "percent encoding", "query string", "uri"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 45,
+    seoTitle: "URL Encoder & Decoder — Percent Encoding Done Right",
+    seoDescription:
+      "Encode or decode URLs and query values, choose between component and full-URL scope, and see any URL broken into its protocol, host, path and parameters.",
+    about: [
+      {
+        heading: "Component or full URL — the choice that matters",
+        body: "encodeURIComponent escapes the structural characters / ? : @ & = + $ #, which is correct for a single query value or path segment. encodeURI leaves them alone, which is correct for a whole URL. Using the wrong one is the single most common URL bug: encode a full URL as a component and it breaks; encode a query value as a full URI and a stray & silently splits your parameter in two.",
+      },
+      {
+        heading: "How to use it",
+        body: "Paste your text, pick encode or decode, and pick the scope. If what you paste looks like a URL, it is also broken down into protocol, host, path, fragment and each query parameter — which is usually faster than reading a long encoded string by eye.",
+      },
+      {
+        heading: "When decoding fails",
+        body: "A percent sign that is not followed by two hex digits is not valid encoding, and the browser refuses it rather than guessing. That usually means the text was never encoded, or was encoded twice — try encoding instead and compare.",
+      },
+    ],
+    faq: [
+      {
+        q: "Why does a space sometimes become + and sometimes %20?",
+        a: "%20 is correct percent-encoding. The + convention comes from HTML form submission (application/x-www-form-urlencoded) and only applies in a query string. Inside a path, a + is a literal plus sign.",
+      },
+      {
+        q: "What is double encoding?",
+        a: "Encoding text that was already encoded, so % becomes %25 and %20 becomes %2520. The usual sign is a URL full of %25. Decode it twice to recover the original.",
+      },
+      {
+        q: "Is it safe to paste a URL with a token in it?",
+        a: "Yes. Everything is computed in your browser with the built-in encoding functions — nothing is sent anywhere, which is the point of doing this locally rather than on a server.",
+      },
+    ],
+  },
+  {
+    id: "robots-txt-generator",
+    name: "robots.txt Generator",
+    slug: "robots-txt-generator",
+    description: "Build a robots.txt file, with AI-crawler opt-out if you want it.",
+    category: "web",
+    icon: Bot,
+    tags: ["robots.txt", "seo", "crawler", "sitemap", "googlebot", "gptbot", "ai"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 46,
+    seoTitle: "robots.txt Generator — Crawl Rules, Sitemap and AI Opt-Out",
+    seoDescription:
+      "Build a valid robots.txt from presets or your own rules, add your sitemap, and optionally block the known AI training crawlers.",
+    about: [
+      {
+        heading: "What robots.txt does and does not do",
+        body: "It asks well-behaved crawlers not to fetch certain paths. It is not access control: the file is public, anyone can read it, and it cannot stop a crawler that ignores it. Never use it to point at anything you actually need kept private — you have just published the location.",
+      },
+      {
+        heading: "How to use it",
+        body: "Start from a preset, add or remove rules, and drop in your sitemap URL. The one-click common blocks cover the paths almost nobody wants indexed. The file must sit at the very root of your domain, and each subdomain needs its own.",
+      },
+      {
+        heading: "Blocking is not the same as hiding",
+        body: "A page blocked in robots.txt can still appear in search results if other sites link to it, because the crawler is not allowed in to read your noindex tag. If you want a page kept out of results, allow the crawl and use a noindex meta tag instead.",
+      },
+    ],
+    faq: [
+      {
+        q: "Can I block AI training crawlers?",
+        a: "You can ask them not to crawl, and the tool adds rules for GPTBot, ClaudeBot, Google-Extended, CCBot and others. It is a request that well-behaved crawlers honour, not a barrier, and it does not affect your normal search ranking.",
+      },
+      {
+        q: "Does Crawl-delay work?",
+        a: "Google ignores it entirely. Bing and Yandex honour it. Only set it if a crawler is genuinely overloading your server, because slowing crawling also slows how fast new pages get discovered.",
+      },
+      {
+        q: "Where exactly does the file go?",
+        a: "At the root: example.com/robots.txt. It has no effect in a subfolder, and rules do not carry across subdomains — blog.example.com needs its own file.",
+      },
+      {
+        q: "How do I check it is working?",
+        a: "Fetch it in a browser first to confirm it is being served as plain text. Then use the robots.txt report in Google Search Console, which will show you how Google is actually interpreting your rules.",
+      },
+    ],
+  },
+  {
+    id: "study-timer",
+    name: "Study Timer",
+    slug: "study-timer",
+    description: "A Pomodoro timer with adjustable focus and break lengths.",
+    category: "student",
+    icon: Timer,
+    tags: ["pomodoro", "timer", "study", "focus", "productivity", "revision"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 47,
+    seoTitle: "Study Timer — Pomodoro Focus Timer With Breaks",
+    seoDescription:
+      "A focus timer that cycles work and break sessions, counts your completed rounds, and keeps accurate time even in a background tab.",
+    about: [
+      {
+        heading: "How the method works",
+        body: "Work in a fixed block, stop when it ends, take a real break, repeat — with a longer break after several rounds. The discipline that makes it work is stopping in both directions: not pushing through the break, and not abandoning the block five minutes in.",
+      },
+      {
+        heading: "How to use it",
+        body: "Press start. The timer moves through focus and break phases on its own, chimes at each change, and shows your completed sessions. Adjust the lengths to suit the work — 25 and 5 is the classic, but 50 and 10 suits anything that takes a while to get into.",
+      },
+      {
+        heading: "Why it stays accurate in a background tab",
+        body: "Browsers throttle timers in tabs you are not looking at, which makes a counting timer drift badly. This one measures against the clock instead, so switching away for twenty minutes does not cost you twenty minutes of countdown.",
+      },
+    ],
+    faq: [
+      {
+        q: "Is 25 minutes the right length?",
+        a: "It is a good default, not a rule. If 25 minutes keeps cutting you off mid-thought, use longer blocks. If you cannot start at all, use shorter ones — ten minutes you actually begin beats twenty-five you keep postponing.",
+      },
+      {
+        q: "Does it keep running if I switch tabs?",
+        a: "Yes, and the countdown stays accurate because it is measured against the wall clock. The tab title shows the remaining time so you can see it without switching back.",
+      },
+      {
+        q: "Can I turn the sound off?",
+        a: "Yes, with the speaker button. The chime is synthesised in the browser rather than loaded as a file, so muting it means no sound is produced at all.",
+      },
+      {
+        q: "Does it remember my sessions?",
+        a: "No. Nothing is stored, so refreshing the page starts the count again. That is deliberate — it is a timer, not a tracker.",
+      },
+    ],
+  },
+  {
+    id: "random-picker",
+    name: "Random Picker",
+    slug: "random-picker",
+    description: "Pick a winner, shuffle an order, make teams or roll a number.",
+    category: "student",
+    icon: Shuffle,
+    tags: ["random", "picker", "raffle", "shuffle", "teams", "draw", "dice"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 48,
+    seoTitle: "Random Picker — Draw a Name, Shuffle, or Split Into Teams",
+    seoDescription:
+      "Pick winners from a list, shuffle an order, split a group into balanced teams, or generate a random number. Uses a cryptographic random source.",
+    about: [
+      {
+        heading: "Four things in one",
+        body: "Pick one or several from a list, shuffle a list into a running order, split a group into balanced teams, or get a random number in a range. All of them from the same list of names, so you do not have to retype it.",
+      },
+      {
+        heading: "How to use it",
+        body: "Paste names one per line or separated by commas. For a multi-round draw, leave “remove after picking” on and each name can only win once. Team splitting deals round-robin from a shuffled list, so the teams always end up within one person of each other.",
+      },
+      {
+        heading: "Why the randomness matters",
+        body: "Draws use your browser's cryptographic random source with rejection sampling, and shuffling uses Fisher–Yates. Together that means every outcome is genuinely equally likely — which matters when someone is going to question the result.",
+      },
+    ],
+    faq: [
+      {
+        q: "Is this actually fair?",
+        a: "Yes. It uses crypto.getRandomValues rather than Math.random, and rejects values that would make low numbers slightly more likely. The shuffle is Fisher–Yates, which is the only common shuffle that is uniform.",
+      },
+      {
+        q: "Can I run a draw with several winners?",
+        a: "Two ways: ask for several at once, or keep “remove after picking” on and press Pick repeatedly to draw them one at a time with a reveal between each.",
+      },
+      {
+        q: "How are uneven teams handled?",
+        a: "Names are dealt round-robin from a shuffled list, so with 10 people across 3 teams you get 4, 3 and 3 — never 6, 2 and 2.",
+      },
+      {
+        q: "Is my list saved?",
+        a: "No. It stays in the page and is gone on refresh. Nothing is sent anywhere, so a list of real names or pupils stays on your device.",
+      },
+    ],
+  },
+  {
+    id: "prompt-generator",
+    name: "AI Prompt Generator",
+    slug: "prompt-generator",
+    description: "Build a structured prompt from role, task, context and constraints.",
+    category: "ai",
+    icon: Sparkles,
+    tags: ["prompt", "ai", "chatgpt", "claude", "prompt engineering", "llm"],
+    popular: true,
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 49,
+    seoTitle: "AI Prompt Generator — Build a Structured Prompt",
+    seoDescription:
+      "Assemble a clear prompt from role, task, context, format and constraints, with a token estimate. Nothing is sent to any AI service.",
+    about: [
+      {
+        heading: "Why structure beats phrasing",
+        body: "Most disappointing AI answers come from a prompt that left out the task's actual constraints, not from the wrong wording. Separating role, task, context, requirements and format forces those gaps into the open before you send it.",
+      },
+      {
+        heading: "How to use it",
+        body: "Fill in what you have — only the task is required — and the prompt assembles as you type. Copy it and paste it into whichever assistant you use. The token estimate tells you roughly whether you are near a context limit.",
+      },
+      {
+        heading: "The two options worth leaving on",
+        body: "“Ask me before assuming anything” turns a confidently wrong answer into a question, which is almost always cheaper. A single example of a good answer moves output quality more than any amount of extra instruction, so fill that field in if you possibly can.",
+      },
+    ],
+    faq: [
+      {
+        q: "Does this tool call an AI model?",
+        a: "No. It is a writing aid with no API key and no model behind it. Nothing you type on this page is sent anywhere — you copy the finished prompt and use it wherever you like.",
+      },
+      {
+        q: "Will this work with ChatGPT, Claude and Gemini?",
+        a: "Yes. The structure it produces is plain text with markdown headings, which every current assistant handles well.",
+      },
+      {
+        q: "How accurate is the token count?",
+        a: "It is an estimate, based on roughly four characters per token for English. Real tokenisation varies by model and is worse for code and for non-English text, so treat it as a rough guide.",
+      },
+      {
+        q: "Should I always give it a role?",
+        a: "No. A role helps when the task needs a particular lens — a lawyer and a copywriter would answer the same question differently. For a straightforward task it adds nothing.",
+      },
+    ],
+  },
+  {
+    id: "prompt-library",
+    name: "AI Prompt Library",
+    slug: "prompt-library",
+    description: "Twelve prompt templates that work, ready to fill in and copy.",
+    category: "ai",
+    icon: Library,
+    tags: ["prompt", "templates", "ai", "library", "chatgpt", "claude", "examples"],
+    isNew: true,
+    status: "live",
+    localProcessing: true,
+    addedAt: 50,
+    seoTitle: "AI Prompt Library — Templates for Writing, Code and Study",
+    seoDescription:
+      "A searchable library of prompt templates for writing, code review, debugging, learning and work, each editable and ready to copy.",
+    about: [
+      {
+        heading: "What is here",
+        body: "Twelve templates across writing, thinking, code, learning and work — the kinds of request people make repeatedly and get mediocre results from. Each one is written to produce something usable on the first attempt rather than after three rounds of clarification.",
+      },
+      {
+        heading: "How to use it",
+        body: "Search or filter, open a template, and replace the [BRACKETED] placeholders with your own details. You can edit the text in place before copying, and reset it back to the original at any time. Leaving the placeholders in is the main reason a template stops working.",
+      },
+      {
+        heading: "What makes these different",
+        body: "They tell the model what not to do as well as what to do — do not invent statistics, do not soften the critique, do not comment on formatting. Negative constraints are usually what separates a template that works from one that reads well and produces mush.",
+      },
+    ],
+    faq: [
+      {
+        q: "Does this page send anything to an AI?",
+        a: "No. It is a library of text. Nothing here calls a model, so anything you paste into a template while editing it stays in your browser.",
+      },
+      {
+        q: "Can I edit the templates?",
+        a: "Yes — edit any of them in place before copying, and reset to the original whenever you want. Edits last for the session and are not saved.",
+      },
+      {
+        q: "Why square brackets for the placeholders?",
+        a: "They are impossible to miss, so you notice one you forgot to fill in. It is worth scanning for a stray bracket before you send the prompt.",
+      },
+      {
+        q: "Is there a template for rewriting AI text to sound human?",
+        a: "No, and that is deliberate. Tools whose purpose is to pass AI or copied work off as your own are not something we build — the study tools here are for doing the work, not disguising it.",
       },
     ],
   },
