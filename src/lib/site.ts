@@ -9,7 +9,22 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://techinstant-tools.netlify.app",
   /** The main TechInstant marketing site. */
   parentUrl: "https://techinstant.netlify.app",
+  email: "techinstantc@gmail.com",
 } as const;
+
+/**
+ * Social accounts, kept in step with the main site's footer.
+ *
+ * Only accounts with a real handle are listed. TechInstant's YouTube and
+ * Facebook pages are linked from the main site as bare domains with no handle,
+ * so they are deliberately left out here rather than pointing people at a
+ * generic homepage.
+ */
+export const SOCIALS = [
+  { label: "X", href: "https://x.com/TECHINSTANTC" },
+  { label: "Instagram", href: "https://instagram.com/techinstantc" },
+  { label: "LinkedIn", href: "https://linkedin.com/company/techinstant/" },
+] as const;
 
 export const TRUST_POINTS = [
   "Free to use",

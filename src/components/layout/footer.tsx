@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { BrandLockup } from "@/components/brand/brand-mark";
 import { CATEGORIES } from "@/lib/categories";
-import { SITE } from "@/lib/site";
+import { SITE, SOCIALS } from "@/lib/site";
 
 const COMPANY = [
   { label: "TechInstant", href: `${SITE.parentUrl}`, external: true },
@@ -108,11 +108,39 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+
+            <h2 className="mt-8 text-sm font-bold text-foreground">Follow</h2>
+            <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
+              {SOCIALS.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition-colors hover:text-brand"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-border pt-6 text-xs text-muted-foreground">
-          &copy; {new Date().getFullYear()} {SITE.parent}. All rights reserved.
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground">
+          <p>
+            &copy; {new Date().getFullYear()} {SITE.parent}. All rights reserved.
+          </p>
+          <p className="flex items-center gap-1.5">
+            <Mail className="h-3.5 w-3.5 text-brand" />
+            Questions, bugs or a tool request?{" "}
+            <a
+              href={`mailto:${SITE.email}`}
+              className="font-semibold text-brand hover:underline"
+            >
+              {SITE.email}
+            </a>
+          </p>
         </div>
       </div>
     </footer>

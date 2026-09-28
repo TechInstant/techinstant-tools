@@ -43,7 +43,11 @@ export function FAQ() {
     },
     {
       q: "Can I suggest a tool?",
-      a: `Yes, please do — get in touch through ${SITE.parent} and say what you were trying to do. The list grows based on what people actually ask for.`,
+      a: `Yes, please do — email ${SITE.email} and say what you were trying to do rather than which tool you want, because the job often has a simpler answer than the tool you had in mind. The list grows based on what people actually ask for.`,
+    },
+    {
+      q: "How do I report a bug or get in touch?",
+      a: `Email ${SITE.email}, or message us on any of the ${SITE.parent} social accounts linked in the footer. For a bug it helps enormously to say which tool, which browser, and what you were doing when it went wrong — and if a file was involved, please describe it rather than attaching it, since we would rather not have your documents.`,
     },
   ];
 

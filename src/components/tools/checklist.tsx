@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Check, Printer, RotateCcw, Plus, X } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ToolPanel, CopyButton } from "@/components/tools/tool-ui";
@@ -12,6 +13,11 @@ export interface ChecklistItem {
   note?: string;
   /** Marks an item that should prompt contacting a professional. */
   urgent?: boolean;
+  /**
+   * Optional picture for the item, so a long shopping list can be scanned
+   * rather than read. Decorative — the label always carries the meaning.
+   */
+  icon?: LucideIcon;
 }
 
 export interface ChecklistSection {
@@ -173,6 +179,7 @@ export function Checklist({
             {section.items.map((item) => {
               const key = `${section.title}::${item.label}`;
               const checked = done.has(key);
+              const Icon = item.icon;
               return (
                 <li key={key} className={isCustom ? "flex items-center gap-1" : undefined}>
                   <label
@@ -198,7 +205,20 @@ export function Checklist({
                       onChange={() => toggle(key)}
                       className="sr-only"
                     />
-                    <span className="min-w-0">
+                    {Icon && (
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors",
+                          checked
+                            ? "bg-brand/10 text-brand"
+                            : "bg-muted text-muted-foreground"
+                        )}
+                      >
+                        <Icon className="h-4 w-4" />
+                      </span>
+                    )}
+                    <span className="min-w-0 pt-0.5">
                       <span
                         className={cn(
                           "block text-sm font-medium",
