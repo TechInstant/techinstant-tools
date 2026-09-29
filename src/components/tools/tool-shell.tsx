@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ChevronRight, ShieldCheck, Upload, Cog, Download } from "lucide-react";
 import { getCategory } from "@/lib/categories";
 import { type Tool, toolsByCategory } from "@/lib/tools";
+import { getToolContent } from "@/lib/tool-content";
 import { LOCAL_PROCESSING_NOTE } from "@/lib/site";
 import { ToolCard } from "@/components/tools/tool-card";
 import { ShareRow } from "@/components/tools/share-row";
@@ -27,6 +28,7 @@ export function ToolShell({
 }) {
   const category = getCategory(tool.category);
   const Icon = tool.icon;
+  const content = getToolContent(tool.slug);
   const related = toolsByCategory(tool.category)
     .filter((t) => t.id !== tool.id)
     .slice(0, 3);
@@ -115,9 +117,9 @@ export function ToolShell({
       )}
 
       {/* explanatory content (§24) */}
-      {tool.about && tool.about.length > 0 && (
+      {content.about && content.about.length > 0 && (
         <section className="mt-12 space-y-6">
-          {tool.about.map((block) => (
+          {content.about.map((block) => (
             <div key={block.heading}>
               <h2 className="text-lg font-bold tracking-tight text-foreground">
                 {block.heading}
@@ -131,13 +133,13 @@ export function ToolShell({
       )}
 
       {/* FAQ */}
-      {tool.faq && tool.faq.length > 0 && (
+      {content.faq && content.faq.length > 0 && (
         <section className="mt-12">
           <h2 className="text-lg font-bold tracking-tight text-foreground">
             Frequently asked questions
           </h2>
           <div className="mt-4 divide-y divide-border rounded-xl border border-border bg-card">
-            {tool.faq.map((item) => (
+            {content.faq.map((item) => (
               <details key={item.q} className="group p-4">
                 <summary className="cursor-pointer list-none text-sm font-semibold text-foreground marker:content-none">
                   {item.q}

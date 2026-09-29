@@ -210,9 +210,13 @@ export function Checklist({
                         aria-hidden="true"
                         className={cn(
                           "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors",
-                          checked
-                            ? "bg-brand/10 text-brand"
-                            : "bg-muted text-muted-foreground"
+                          /* An urgent row keeps its warning colour even when
+                             ticked — it is not a task you complete. */
+                          item.urgent
+                            ? "bg-amber-500/15 text-amber-600 dark:text-amber-400"
+                            : checked
+                              ? "bg-brand/10 text-brand"
+                              : "bg-muted text-muted-foreground"
                         )}
                       >
                         <Icon className="h-4 w-4" />

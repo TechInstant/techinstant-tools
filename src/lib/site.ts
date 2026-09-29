@@ -9,7 +9,7 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://techinstant-tools.netlify.app",
   /** The main TechInstant marketing site. */
   parentUrl: "https://techinstant.netlify.app",
-  email: "techinstantc@gmail.com",
+  email: "team.techinstant@gmail.com",
 } as const;
 
 /**

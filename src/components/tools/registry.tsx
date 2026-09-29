@@ -2,202 +2,109 @@ import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 
 /**
- * Maps a tool slug to its interactive component.
+ * Resolves a tool slug to its interactive component.
  *
- * Every entry is a `dynamic()` import, which is what keeps §28 honest: a tool's
- * code (and any heavy library it pulls in, like pdf-lib or qrcode) is only
- * fetched when someone opens that tool — never on the homepage.
+ * This used to be a literal map of 50 `dynamic(() => import("./implementations/x"))`
+ * entries. That reads well but costs every visitor dearly: because the module
+ * statically named all 50 implementations, the bundler put their shared
+ * dependencies into a chunk the page loaded eagerly — so opening the Word
+ * Counter downloaded ~97kB of pdf-lib it never uses.
  *
- * Adding a tool = one entry in `lib/tools.ts` + one entry here.
+ * A single template-literal import instead creates one lazy context. Each
+ * implementation is still its own chunk, but nothing is named until a slug asks
+ * for it, so a page only ever fetches the tool it is actually showing.
  */
 const loading = () => (
   <div className="h-40 animate-pulse rounded-xl border border-border bg-muted" />
 );
 
-export const TOOL_COMPONENTS: Record<string, ComponentType> = {
-  "json-formatter": dynamic(() => import("./implementations/json-formatter"), {
-    loading,
-  }),
-  "json-minifier": dynamic(() => import("./implementations/json-minifier"), {
-    loading,
-  }),
-  base64: dynamic(() => import("./implementations/base64"), { loading }),
-  "uuid-generator": dynamic(() => import("./implementations/uuid-generator"), {
-    loading,
-  }),
-  timestamp: dynamic(() => import("./implementations/timestamp"), { loading }),
-  "password-generator": dynamic(
-    () => import("./implementations/password-generator"),
-    { loading }
-  ),
-  "word-counter": dynamic(() => import("./implementations/word-counter"), {
-    loading,
-  }),
-  "percentage-calculator": dynamic(
-    () => import("./implementations/percentage-calculator"),
-    { loading }
-  ),
-  "age-calculator": dynamic(() => import("./implementations/age-calculator"), {
-    loading,
-  }),
-  "qr-generator": dynamic(() => import("./implementations/qr-generator"), {
-    loading,
-  }),
+/**
+ * Slugs with an implementation file, so an unknown slug can be rejected without
+ * attempting an import that would throw at runtime.
+ *
+ * Adding a tool = one entry in `lib/tools.ts`, one file in `implementations/`,
+ * and one line here.
+ */
+const IMPLEMENTED = new Set([
+  /* PDF */
+  "merge-pdf",
+  "split-pdf",
+  "compress-pdf",
+  "pdf-to-image",
+  "images-to-pdf",
+  /* Image */
+  "image-compressor",
+  "image-resizer",
+  "image-converter",
+  "image-cropper",
+  "image-metadata",
+  /* Developer */
+  "json-formatter",
+  "json-minifier",
+  "base64",
+  "uuid-generator",
+  "timestamp",
+  /* QR, web and everyday */
+  "qr-generator",
+  "meta-tag-generator",
+  "password-generator",
+  "word-counter",
+  "percentage-calculator",
+  "age-calculator",
+  /* Health */
+  "period-calculator",
+  "due-date-calculator",
+  "bmi-calculator",
+  "ovulation-calculator",
+  "water-intake-calculator",
+  "calorie-calculator",
+  "postpartum-guide",
+  "pregnancy-shopping-list",
+  /* Student */
+  "gpa-calculator",
+  "citation-generator",
+  "grade-calculator",
+  "text-case-converter",
+  "readability-checker",
+  "hidden-text-scanner",
+  "study-timer",
+  "random-picker",
+  /* Business */
+  "invoice-generator",
+  "receipt-generator",
+  "business-card-maker",
+  "certificate-generator",
+  /* Web batch */
+  "ip-location-checker",
+  "slug-generator",
+  "color-contrast-checker",
+  "favicon-generator",
+  "lorem-ipsum-generator",
+  "url-encoder",
+  "robots-txt-generator",
+  /* AI */
+  "prompt-generator",
+  "prompt-library",
+]);
 
-  /* PDF tools — pdf-lib and pdf.js load only when one of these is opened. */
-  "merge-pdf": dynamic(() => import("./implementations/merge-pdf"), { loading }),
-  "split-pdf": dynamic(() => import("./implementations/split-pdf"), { loading }),
-  "compress-pdf": dynamic(() => import("./implementations/compress-pdf"), {
-    loading,
-  }),
-  "pdf-to-image": dynamic(() => import("./implementations/pdf-to-image"), {
-    loading,
-  }),
-  "images-to-pdf": dynamic(() => import("./implementations/images-to-pdf"), {
-    loading,
-  }),
-
-  /* Image tools — canvas based; exifr loads only inside the metadata viewer. */
-  "image-compressor": dynamic(() => import("./implementations/image-compressor"), {
-    loading,
-  }),
-  "image-resizer": dynamic(() => import("./implementations/image-resizer"), {
-    loading,
-  }),
-  "image-converter": dynamic(() => import("./implementations/image-converter"), {
-    loading,
-  }),
-  "image-cropper": dynamic(() => import("./implementations/image-cropper"), {
-    loading,
-  }),
-  "image-metadata": dynamic(() => import("./implementations/image-metadata"), {
-    loading,
-  }),
-
-  /* Health, student and web tools. */
-  "period-calculator": dynamic(() => import("./implementations/period-calculator"), {
-    loading,
-  }),
-  "due-date-calculator": dynamic(
-    () => import("./implementations/due-date-calculator"),
-    { loading }
-  ),
-  "bmi-calculator": dynamic(() => import("./implementations/bmi-calculator"), {
-    loading,
-  }),
-  "gpa-calculator": dynamic(() => import("./implementations/gpa-calculator"), {
-    loading,
-  }),
-  "meta-tag-generator": dynamic(
-    () => import("./implementations/meta-tag-generator"),
-    { loading }
-  ),
-
-  /* Student batch. */
-  "citation-generator": dynamic(
-    () => import("./implementations/citation-generator"),
-    { loading }
-  ),
-  "grade-calculator": dynamic(() => import("./implementations/grade-calculator"), {
-    loading,
-  }),
-  "text-case-converter": dynamic(
-    () => import("./implementations/text-case-converter"),
-    { loading }
-  ),
-  "readability-checker": dynamic(
-    () => import("./implementations/readability-checker"),
-    { loading }
-  ),
-  "hidden-text-scanner": dynamic(
-    () => import("./implementations/hidden-text-scanner"),
-    { loading }
-  ),
-
-  /* Women's health guides. */
-  "postpartum-guide": dynamic(() => import("./implementations/postpartum-guide"), {
-    loading,
-  }),
-  "pregnancy-shopping-list": dynamic(
-    () => import("./implementations/pregnancy-shopping-list"),
-    { loading }
-  ),
-
-  "ovulation-calculator": dynamic(
-    () => import("./implementations/ovulation-calculator"),
-    { loading }
-  ),
-  "water-intake-calculator": dynamic(
-    () => import("./implementations/water-intake-calculator"),
-    { loading }
-  ),
-  "calorie-calculator": dynamic(() => import("./implementations/calorie-calculator"), {
-    loading,
-  }),
-
-  /* Business documents — invoice and receipt share one engine. */
-  "invoice-generator": dynamic(() => import("./implementations/invoice-generator"), {
-    loading,
-  }),
-  "receipt-generator": dynamic(() => import("./implementations/receipt-generator"), {
-    loading,
-  }),
-  "business-card-maker": dynamic(
-    () => import("./implementations/business-card-maker"),
-    { loading }
-  ),
-  "certificate-generator": dynamic(
-    () => import("./implementations/certificate-generator"),
-    { loading }
-  ),
-
-  /* The one tool that needs the network — see its in-page notice. */
-  "ip-location-checker": dynamic(
-    () => import("./implementations/ip-location-checker"),
-    { loading }
-  ),
-
-  /* Web batch. */
-  "slug-generator": dynamic(() => import("./implementations/slug-generator"), {
-    loading,
-  }),
-  "color-contrast-checker": dynamic(
-    () => import("./implementations/color-contrast-checker"),
-    { loading }
-  ),
-  "favicon-generator": dynamic(() => import("./implementations/favicon-generator"), {
-    loading,
-  }),
-  "lorem-ipsum-generator": dynamic(
-    () => import("./implementations/lorem-ipsum-generator"),
-    { loading }
-  ),
-  "url-encoder": dynamic(() => import("./implementations/url-encoder"), { loading }),
-  "robots-txt-generator": dynamic(
-    () => import("./implementations/robots-txt-generator"),
-    { loading }
-  ),
-
-  /* Study aids. */
-  "study-timer": dynamic(() => import("./implementations/study-timer"), { loading }),
-  "random-picker": dynamic(() => import("./implementations/random-picker"), {
-    loading,
-  }),
-
-  /* AI — prompt writing aids. No model is called from either of these. */
-  "prompt-generator": dynamic(() => import("./implementations/prompt-generator"), {
-    loading,
-  }),
-  "prompt-library": dynamic(() => import("./implementations/prompt-library"), {
-    loading,
-  }),
-};
+/* `dynamic()` returns a new component each call, which would remount the tool
+   on every render, so each slug's wrapper is created once and reused. */
+const cache = new Map<string, ComponentType>();
 
 export function getToolComponent(slug: string): ComponentType | null {
-  return TOOL_COMPONENTS[slug] ?? null;
+  if (!IMPLEMENTED.has(slug)) return null;
+
+  const cached = cache.get(slug);
+  if (cached) return cached;
+
+  const component = dynamic(() => import(`./implementations/${slug}`), {
+    loading,
+  }) as ComponentType;
+  cache.set(slug, component);
+  return component;
 }
 
-/** Placeholder shown for registry entries that have no component yet (§35). */
+/** Placeholder shown for catalogue entries that have no component yet (§35). */
 export function ComingSoon({ name }: { name: string }) {
   return (
     <div className="rounded-xl border border-dashed border-border bg-card p-10 text-center">

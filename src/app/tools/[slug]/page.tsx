@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { TOOLS, getTool } from "@/lib/tools";
+import { getToolContent } from "@/lib/tool-content";
 import { getCategory } from "@/lib/categories";
 import { SITE } from "@/lib/site";
 import { ToolShell } from "@/components/tools/tool-shell";
@@ -18,9 +19,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const tool = getTool(slug);
   if (!tool) return {};
 
-  const title = tool.seoTitle ?? `${tool.name} Online Free`;
+  const content = getToolContent(tool.slug);
+  const title = content.seoTitle ?? `${tool.name} Online Free`;
   const description =
-    tool.seoDescription ??
+    content.seoDescription ??
     `${tool.description} Free, fast and privacy-conscious — part of ${SITE.name}.`;
   const url = `/tools/${tool.slug}`;
 
