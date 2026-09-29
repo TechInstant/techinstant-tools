@@ -565,7 +565,7 @@ export const TOOL_CONTENT: Record<string, ToolContent> = {
         },
         {
           q: "How do the shopping links work?",
-          a: "Pick Jumia or Amazon and each ticked item becomes an ordinary search link, assembled in your browser at the moment you click it. Your list is never sent to a retailer or to us, and we cannot see what you buy.",
+          a: "Pick a store — Jumia, Konga, Jiji, Takealot, Amazon, Walmart, Flipkart, Noon, eBay, AliExpress or Temu — and each ticked item becomes an ordinary search link, assembled in your browser at the moment you click it. Your list is never sent to a retailer or to us, and we cannot see what you buy.",
         },
         {
           q: "Can I print or share the list?",

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ShoppingCart, ExternalLink } from "lucide-react";
 import { Select } from "@/components/ui/input";
 import { ToolPanel, Field, CopyButton } from "@/components/tools/tool-ui";
-import { SHOPS, getShop, AFFILIATE_DISCLOSURE } from "@/lib/shops";
+import { SHOPS, SHOP_GROUPS, getShop, AFFILIATE_DISCLOSURE } from "@/lib/shops";
 
 /**
  * Turns the ticked items into retailer search links.
@@ -44,14 +44,33 @@ export function ShoppingLinks({ items }: { items: string[] }) {
         </div>
       </div>
 
-      <div className="sm:max-w-xs">
-        <Field label="Store" htmlFor="shop-store">
+      <div className="sm:max-w-sm">
+        <Field
+          label="Store"
+          htmlFor="shop-store"
+          hint={
+            shop.secondHand
+              ? "Mostly private sellers, so good for the things worth buying used — but never a car seat or a cot mattress."
+              : undefined
+          }
+        >
           <Select id="shop-store" value={shopId} onChange={(e) => setShopId(e.target.value)}>
-            {SHOPS.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name} — {s.region}
-              </option>
-            ))}
+            {/* Grouped by region, because a flat list of 18 storefronts is
+                tedious to scan on a phone. */}
+            {SHOP_GROUPS.map((group) => {
+              const inGroup = SHOPS.filter((s) => s.group === group);
+              if (inGroup.length === 0) return null;
+              return (
+                <optgroup key={group} label={group}>
+                  {inGroup.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.name} — {s.region}
+                      {s.secondHand ? " (used)" : ""}
+                    </option>
+                  ))}
+                </optgroup>
+              );
+            })}
           </Select>
         </Field>
       </div>
