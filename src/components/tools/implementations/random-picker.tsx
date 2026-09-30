@@ -5,6 +5,7 @@ import { Shuffle, Users, Dice5, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea } from "@/components/ui/input";
 import { ToolPanel, Field, CopyButton, ErrorNote } from "@/components/tools/tool-ui";
+import { SpinWheel } from "@/components/tools/spin-wheel";
 import { cn } from "@/lib/utils";
 
 type Mode = "pick" | "shuffle" | "teams" | "number";
@@ -57,6 +58,15 @@ export default function RandomPicker() {
   const [drawn, setDrawn] = useState<string[]>([]);
   const [error, setError] = useState("");
 
+  /* Wheel state. `wheelWinner` is an index into the pool the wheel is showing,
+     decided by the same cryptographic draw as everything else — the animation
+     only reveals it. `spinId` increments so drawing the same name twice still
+     re-animates. */
+  const [useWheel, setUseWheel] = useState(true);
+  const [wheelWinner, setWheelWinner] = useState<number | null>(null);
+  const [spinId, setSpinId] = useState(0);
+  const [revealed, setRevealed] = useState(true);
+
   const entries = useMemo(
     () =>
       raw
@@ -71,6 +81,14 @@ export default function RandomPicker() {
     [entries, drawn, noRepeat]
   );
 
+  /* The wheel is only meaningful for a single draw from a list you can read. */
+  const wheelPool = remaining;
+  const wheelAvailable =
+    mode === "pick" &&
+    useWheel &&
+    Math.max(1, Math.floor(Number(howMany) || 1)) === 1 &&
+    wheelPool.length >= 2;
+
   const reset = () => {
     setPicked([]);
     setOrder([]);
@@ -78,6 +96,9 @@ export default function RandomPicker() {
     setNumber(null);
     setDrawn([]);
     setError("");
+    setWheelWinner(null);
+    setSpinId(0);
+    setRevealed(true);
   };
 
   const run = () => {
@@ -110,6 +131,18 @@ export default function RandomPicker() {
         setError("Everyone has been picked. Reset to start the draw again.");
         return;
       }
+
+      /* Single draw on the wheel: choose the winner now, then let the wheel
+         rotate to it. The result is never read off the animation. */
+      if (wheelAvailable) {
+        const index = randomInt(pool.length);
+        setWheelWinner(index);
+        setRevealed(false);
+        setPicked([]);
+        setSpinId((n) => n + 1);
+        return;
+      }
+
       const result = shuffled(pool).slice(0, Math.min(want, pool.length));
       setPicked(result);
       if (noRepeat) setDrawn((d) => [...d, ...result]);
@@ -133,6 +166,18 @@ export default function RandomPicker() {
     const buckets: string[][] = Array.from({ length: count }, () => []);
     shuffled(entries).forEach((name, i) => buckets[i % count].push(name));
     setTeams(buckets);
+  };
+
+  /* Called when the wheel stops. Committing the result here, rather than when
+     the spin starts, keeps "9 still in the draw" from updating mid-animation and
+     giving the answer away. */
+  const handleSpinEnd = () => {
+    if (wheelWinner == null) return;
+    const winner = wheelPool[wheelWinner];
+    if (!winner) return;
+    setPicked([winner]);
+    setRevealed(true);
+    if (noRepeat) setDrawn((d) => [...d, winner]);
   };
 
   const MODES: { id: Mode; label: string; icon: typeof Trophy }[] = [
@@ -209,6 +254,28 @@ export default function RandomPicker() {
             </Field>
 
             {mode === "pick" && (
+              <label
+                htmlFor="rp-wheel"
+                className="flex min-h-11 cursor-pointer items-center gap-2 text-sm"
+              >
+                <input
+                  id="rp-wheel"
+                  type="checkbox"
+                  checked={useWheel}
+                  onChange={(e) => setUseWheel(e.target.checked)}
+                  className="h-4 w-4 rounded border-border accent-[var(--color-brand-solid,#05a85a)]"
+                />
+                <span className="text-foreground">
+                  Spin a wheel
+                  <span className="block text-xs text-muted-foreground">
+                    For a single draw from two or more names. Turn it off to pick
+                    instantly, or to draw several at once.
+                  </span>
+                </span>
+              </label>
+            )}
+
+            {mode === "pick" && (
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="How many to pick" htmlFor="rp-count">
                   <Input
@@ -266,10 +333,14 @@ export default function RandomPicker() {
         )}
 
         <div className="flex flex-wrap gap-2">
-          <Button size="lg" onClick={run}>
+          <Button size="lg" onClick={run} disabled={!revealed}>
             <Shuffle />
             {mode === "pick"
-              ? "Pick"
+              ? wheelAvailable
+                ? revealed
+                  ? "Spin"
+                  : "Spinning…"
+                : "Pick"
               : mode === "shuffle"
                 ? "Shuffle"
                 : mode === "teams"
@@ -286,6 +357,22 @@ export default function RandomPicker() {
 
       {error && <ErrorNote>{error}</ErrorNote>}
 
+      {wheelAvailable && (
+        <ToolPanel>
+          <SpinWheel
+            entries={wheelPool}
+            winnerIndex={wheelWinner}
+            spinId={spinId}
+            onSpinEnd={handleSpinEnd}
+          />
+          {/* The only announcement of the result, so it fires once the wheel has
+              actually stopped rather than the moment the draw is made. */}
+          <p role="status" aria-live="polite" className="sr-only">
+            {revealed && picked.length === 1 ? `${picked[0]} was picked` : ""}
+          </p>
+        </ToolPanel>
+      )}
+
       {number !== null && (
         <ToolPanel className="text-center">
           <p className="text-sm font-medium text-muted-foreground">Your number</p>
@@ -295,7 +382,7 @@ export default function RandomPicker() {
         </ToolPanel>
       )}
 
-      {picked.length > 0 && (
+      {picked.length > 0 && revealed && (
         <ToolPanel>
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-base font-bold tracking-tight text-foreground">

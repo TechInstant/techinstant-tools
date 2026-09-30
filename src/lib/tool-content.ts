@@ -1110,20 +1110,24 @@ export const TOOL_CONTENT: Record<string, ToolContent> = {
       ],
   },
   "random-picker": {
-    seoTitle: "Random Picker — Draw a Name, Shuffle, or Split Into Teams",
-    seoDescription: "Pick winners from a list, shuffle an order, split a group into balanced teams, or generate a random number. Uses a cryptographic random source.",
+    seoTitle: "Spin the Wheel — Team Picker for Standups & Retros",
+    seoDescription: "Spin a wheel to pick who gives the next update, shuffle a standup order, or split a group into balanced teams. Free, no sign-up, and the draw is cryptographically fair.",
     about: [
         {
-          heading: "Four things in one",
-          body: "Pick one or several from a list, shuffle a list into a running order, split a group into balanced teams, or get a random number in a range. All of them from the same list of names, so you do not have to retype it.",
+          heading: "Who goes next",
+          body: "Paste the team in, press Spin, and the wheel lands on one person. Leave “remove after picking” on and spin again for the next — nobody comes up twice, so it works straight through a standup without anyone keeping track. It also shuffles a whole running order in one go if you would rather see the full list up front.",
         },
         {
-          heading: "How to use it",
-          body: "Paste names one per line or separated by commas. For a multi-round draw, leave “remove after picking” on and each name can only win once. Team splitting deals round-robin from a shuffled list, so the teams always end up within one person of each other.",
+          heading: "Four things from one list",
+          body: "Spin for one name, shuffle everyone into an order, split into balanced teams, or pull a random number. All from the same list of names, so you paste the team once and use whichever you need.",
+        },
+        {
+          heading: "The wheel does not decide the result",
+          body: "The winner is drawn before the wheel starts moving, using your browser's cryptographic random source, and the wheel then rotates to it. That is the right way round: if the outcome depended on where an animation happened to stop, its fairness would depend on the easing curve. Turn the wheel off and the same draw happens instantly.",
         },
         {
           heading: "Why the randomness matters",
-          body: "Draws use your browser's cryptographic random source with rejection sampling, and shuffling uses Fisher–Yates. Together that means every outcome is genuinely equally likely — which matters when someone is going to question the result.",
+          body: "Draws use crypto.getRandomValues with rejection sampling, and shuffling uses Fisher–Yates. Every outcome is genuinely equally likely — which matters when the person who has to present is going to question it.",
         },
       ],
     faq: [
@@ -1132,8 +1136,20 @@ export const TOOL_CONTENT: Record<string, ToolContent> = {
           a: "Yes. It uses crypto.getRandomValues rather than Math.random, and rejects values that would make low numbers slightly more likely. The shuffle is Fisher–Yates, which is the only common shuffle that is uniform.",
         },
         {
+          q: "Is the wheel just for show?",
+          a: "The animation is, and deliberately so. The winner is chosen by the cryptographic draw first and the wheel spins to that segment, landing at a slightly different point inside it each time so it does not look mechanical. The alternative — reading the result off wherever the spin stopped — would make fairness a property of the animation, which is not something you should have to take on trust.",
+        },
+        {
+          q: "How many names fit on the wheel?",
+          a: "It labels up to 40. Past that the segments are too thin to read, so the wheel still spins but the winner is announced underneath instead. The draw itself has no limit.",
+        },
+        {
+          q: "Can I skip the animation?",
+          a: "Yes — turn off “Spin a wheel” and the draw is instant. It is also skipped automatically if your system is set to reduce motion, and for anyone drawing several names at once.",
+        },
+        {
           q: "Can I run a draw with several winners?",
-          a: "Two ways: ask for several at once, or keep “remove after picking” on and press Pick repeatedly to draw them one at a time with a reveal between each.",
+          a: "Two ways: ask for several at once, or keep “remove after picking” on and spin repeatedly to draw them one at a time with a reveal between each.",
         },
         {
           q: "How are uneven teams handled?",
@@ -1141,7 +1157,7 @@ export const TOOL_CONTENT: Record<string, ToolContent> = {
         },
         {
           q: "Is my list saved?",
-          a: "No. It stays in the page and is gone on refresh. Nothing is sent anywhere, so a list of real names or pupils stays on your device.",
+          a: "No. It stays in the page and is gone on refresh. Nothing is sent anywhere, so a list of your colleagues' names stays on your device.",
         },
       ],
   },

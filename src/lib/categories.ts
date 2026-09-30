@@ -10,6 +10,7 @@ import {
   Briefcase,
   Globe,
   HeartPulse,
+  Users,
 } from "lucide-react";
 
 export type CategoryId =
@@ -22,6 +23,7 @@ export type CategoryId =
   | "calculators"
   | "health"
   | "student"
+  | "team"
   | "business";
 
 export interface Category {
@@ -110,6 +112,14 @@ export const CATEGORIES: Category[] = [
     description: "Tools for study and academic work.",
     icon: GraduationCap,
     accent: "text-indigo-600 dark:text-indigo-400 bg-indigo-500/10",
+  },
+  {
+    id: "team",
+    name: "Team Tools",
+    slug: "team",
+    description: "For standups, retros and running a meeting.",
+    icon: Users,
+    accent: "text-cyan-700 dark:text-cyan-400 bg-cyan-500/10",
   },
   {
     id: "business",

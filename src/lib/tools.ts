@@ -745,12 +745,31 @@ export const TOOLS: Tool[] = [
   },
   {
     id: "random-picker",
-    name: "Random Picker",
+    name: "Spin the Wheel & Team Picker",
     slug: "random-picker",
-    description: "Pick a winner, shuffle an order, make teams or roll a number.",
-    category: "student",
+    description:
+      "Spin a wheel to pick who goes next, shuffle a standup order or split into teams.",
+    category: "team",
     icon: Shuffle,
-    tags: ["random", "picker", "raffle", "shuffle", "teams", "draw", "dice"],
+    /* Tagged for what people actually search: the standup use case, and the
+       "wheel of names" wording they arrive with. */
+    tags: [
+      "spin the wheel",
+      "wheel of names",
+      "random name picker",
+      "standup",
+      "stand-up",
+      "retro",
+      "who goes next",
+      "raffle",
+      "shuffle",
+      "teams",
+      "draw",
+      "dice",
+      "meeting",
+    ],
+    featured: true,
+    popular: true,
     isNew: true,
     status: "live",
     localProcessing: true,
@@ -797,7 +816,19 @@ export const toolsByCategory = (category: CategoryId) =>
 export const countByCategory = (category: CategoryId) =>
   toolsByCategory(category).length;
 
-export const popularTools = () => TOOLS.filter((t) => t.popular);
+/**
+ * Popular tools, with anything marked `featured` pulled to the front.
+ *
+ * The homepage shows only the first eight, and before this it took them in
+ * whatever order the array happened to be in — which meant a new tool added at
+ * the end could never appear there however useful it was. `featured` had been
+ * set on a few tools and read by nothing; this gives it that job. Sort is stable,
+ * so everything else keeps its existing order.
+ */
+export const popularTools = () =>
+  [...TOOLS.filter((t) => t.popular)].sort(
+    (a, b) => Number(!!b.featured) - Number(!!a.featured)
+  );
 
 export const newTools = () => TOOLS.filter((t) => t.isNew);
 
