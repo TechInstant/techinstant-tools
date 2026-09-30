@@ -97,8 +97,11 @@ export default function RandomPicker() {
     setDrawn([]);
     setError("");
     setWheelWinner(null);
-    setSpinId(0);
     setRevealed(true);
+    /* spinId is deliberately NOT reset. The wheel ignores a spinId it has
+       already animated, so winding it back to 0 made the next spin after a
+       reset collide with an old value and do nothing at all. It only ever needs
+       to change, so let it keep counting up. */
   };
 
   const run = () => {
@@ -364,6 +367,8 @@ export default function RandomPicker() {
             winnerIndex={wheelWinner}
             spinId={spinId}
             onSpinEnd={handleSpinEnd}
+            onRequestSpin={run}
+            canSpin={revealed && wheelPool.length >= 2}
           />
           {/* The only announcement of the result, so it fires once the wheel has
               actually stopped rather than the moment the draw is made. */}

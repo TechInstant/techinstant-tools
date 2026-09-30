@@ -92,6 +92,20 @@
   }
 }
 
+/* The winner card on the spin wheel. Defined here rather than reached for from a
+   utility because this project has no animation plugin — `animate-in` and
+   friends resolve to nothing. The reduced-motion block below neutralises it. */
+@keyframes wheel-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
